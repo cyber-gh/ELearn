@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 
 namespace ELearn.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

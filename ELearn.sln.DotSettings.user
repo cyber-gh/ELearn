@@ -1,0 +1,22 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">VISIBLE_FILES</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=22172e33_002Dddf8_002D4293_002D9493_002D386ec989ab69/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CourseListTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::E62D709A-44BD-4D25-A7F8-EC6F87E9E8BE::net5.0::ELearnTests.Controllers.CourseListTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4286fc29_002D5b5b_002D4b4a_002D9951_002D7e4bf9f9fa8f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CourseListTests #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::E62D709A-44BD-4D25-A7F8-EC6F87E9E8BE::net5.0::ELearnTests.Controllers.CourseListTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b67ba6a1_002D8a41_002D46aa_002Da454_002D85b0fe89f8f8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UnitTest1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::18EA9CE0-9F59-4371-92A4-EB71D04778DF::net5.0::ELearnTests.UnitTest1&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d1d5ae0f_002D2010_002D48d2_002Da702_002D4a0b11e4182e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CourseListTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::18EA9CE0-9F59-4371-92A4-EB71D04778DF::net5.0::ELearnTests.UnitTest1&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -7,8 +7,8 @@ namespace ELearn.Application.Repositories
 {
     public interface ICourseListRepoReadOnly
     {
-        Task<List<Course>> GetAll();
-        Task<List<Course>> SearchCourse(String pattern);
-        Task<List<Course>> GetByCategory(Guid categoryId);
+        Task<IEnumerable<CourseOverview>> GetAll();
+        Task<IEnumerable<CourseOverview>> SearchCourse(String pattern);
+        Task<IEnumerable<CourseOverview>> GetByCategory(Guid categoryId);
     }
 }

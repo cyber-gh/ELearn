@@ -1,4 +1,24 @@
-$HEADER$namespace $NAMESPACE$
+using System;
+
+namespace ELearn.Domain
 {
-  public class $CLASS$ {$END$}
+    public sealed class CourseOverview: IEntity
+    {
+        public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel)
+        {
+            Id = id;
+            Title = title;
+            PreviewImageUrl = previewImageUrl;
+            Description = description;
+            Length = length;
+            UserLevel = userLevel;
+        }
+
+        public Guid Id { get; private set; }
+        public string Title { get; set; }
+        public string PreviewImageUrl { get; set; }
+        public String Description { get; set; }
+        public int Length { get; set; } //seconds total
+        public UserLevel UserLevel { get; set; }
+    }
 }

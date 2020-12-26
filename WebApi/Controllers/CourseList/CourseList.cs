@@ -1,12 +1,24 @@
-$HEADER$using Microsoft.AspNetCore.Mvc;
-namespace $NAMESPACE$
+using System.Threading.Tasks;
+using ELearn.Application.Repositories;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ELearn.Controllers.CourseList
 {
-  public class $CLASS$: Controller
-  {
-    // GET
-    public IActionResult Index()
+    [Route("api/[controller]")]
+    public class CourseListController : Controller
     {
-	  $END$return View();
+
+        private readonly ICourseListRepoReadOnly repo;
+
+        public CourseListController(ICourseListRepoReadOnly repo)
+        {
+            this.repo = repo;
+        }
+
+        public async Task<IActionResult> Get()
+        {
+            var courses = await repo.GetAll();
+            return new ObjectResult(courses);
+        }
     }
-  }
 }

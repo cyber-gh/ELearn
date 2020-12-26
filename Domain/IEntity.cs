@@ -1,7 +1,9 @@
+using System;
+
 namespace ELearn.Domain
 {
-    public interface IEntity
+    internal interface IEntity
     {
-        
+        Guid Id { get;  }    
     }
 }

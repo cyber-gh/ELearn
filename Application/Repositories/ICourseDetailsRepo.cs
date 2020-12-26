@@ -1,4 +1,27 @@
-$HEADER$namespace $NAMESPACE$
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using ELearn.Domain;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ELearn.Application.Repositories
 {
-  public interface $INTERFACE$ {$END$}
+    public interface ICourseDetailsRepo
+    {
+        Task<CourseOverview> Get(Guid id);
+        Task<IEnumerable<Lesson>> GetLessons(Guid id);
+        Task<IEnumerable<Review>> GetReviews(Guid id);
+
+        async Task<Course> GetDetails(Guid id)
+        {
+            var overview = Get(id);
+            var lessons = GetLessons(id);
+            var reviews = GetReviews(id);
+
+            await Task.WhenAll(overview, lessons, reviews);
+
+            return new Course(overview.Result, lessons.Result, reviews.Result);
+        }
+
+    }
 }

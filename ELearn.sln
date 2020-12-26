@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELearn", "ELearn.csproj", "{AC64A282-5755-48B6-BCBC-DB98F019943A}"
 EndProject
 Global

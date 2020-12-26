@@ -1,3 +1,4 @@
+using ELearn.Application.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using ELearn.Data;
+using ELearn.Infrastructure.InMemory;
 using ELearn.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,11 +46,12 @@ namespace ELearn
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddScoped<ICourseListRepoReadOnly, CourseListRepo>();
+            services.AddScoped<ICourseDetailsRepo, CourseListRepo>();
+            services.AddScoped<ICreateCourseRepo, CourseListRepo>();
+
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/build";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,9 @@
-$HEADER$namespace $NAMESPACE$
+namespace ELearn.Domain
 {
-  public enum $ENUM$ {$END$}
+    public enum UserLevel
+    {
+        Beginner,
+        Intermediate,
+        Expert
+    }
 }
