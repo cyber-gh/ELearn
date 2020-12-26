@@ -15,6 +15,7 @@ namespace ELearn.Controllers.CourseList
             this.repo = repo;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var courses = await repo.GetAll();
