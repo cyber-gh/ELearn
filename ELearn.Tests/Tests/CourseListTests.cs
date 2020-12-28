@@ -17,11 +17,11 @@ namespace Tests
             var mock = new Mock<ICourseListRepoReadOnly>();
             var list = new List<CourseOverview>();
             const string link = "https://spin.atomicobject.com/wp-content/uploads/research.jpg";
-            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "This is another test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "Interesting test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner,null ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "This is another test", link, "Test Description", 120, UserLevel.Beginner, null ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "Interesting test", link, "Test Description", 120, UserLevel.Beginner, null ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner, null ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner, null ));
 
             mock.Setup(p => p.GetAll()).ReturnsAsync(list);
 

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Autofac;
 using ELearn.Application.Repositories;
 using ELearn.Infrastructure.Entity;
@@ -37,7 +38,10 @@ namespace ELearn
 
             // services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddControllersWithViews();
+            services.AddControllers().AddJsonOptions(opt =>
+            {
+                opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             services.AddRazorPages();
 
             // services.AddScoped<ICourseListRepoReadOnly, CourseListRepo>();
@@ -100,8 +104,8 @@ namespace ELearn
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterAssemblyModules(typeof(Startup).Assembly);
-            builder.RegisterModule<ELearn.Infrastructure.InMemory.Module>();
-            // builder.RegisterModule<ELearn.Infrastructure.Entity.Module>();
+            // builder.RegisterModule<ELearn.Infrastructure.InMemory.Module>();
+            builder.RegisterModule<ELearn.Infrastructure.Entity.Module>();
         }
     }
     

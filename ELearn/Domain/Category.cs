@@ -10,7 +10,7 @@ namespace ELearn.Domain
             Name = name;
         }
 
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
         public String Name { get; set; }
     }
 }

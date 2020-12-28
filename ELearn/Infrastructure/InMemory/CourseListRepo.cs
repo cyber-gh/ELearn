@@ -62,7 +62,17 @@ namespace ELearn.Infrastructure.InMemory
             return overview;
         }
 
-        public void AddLessons(List<Lesson> lessons)
+        public Task AddLessons(Guid courseId, List<Lesson> lessons)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveLesson(Guid lessonId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddLessons(List<Lesson> lessons)
         {
             throw new NotImplementedException();
         }

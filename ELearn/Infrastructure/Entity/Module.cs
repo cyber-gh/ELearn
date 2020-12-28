@@ -1,5 +1,7 @@
 using System;
 using Autofac;
+using ELearn.Application.Repositories;
+using ELearn.Infrastructure.Entity.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace ELearn.Infrastructure.Entity
@@ -17,6 +19,15 @@ namespace ELearn.Infrastructure.Entity
 
             builder.RegisterType<EntityContext>()
                 .WithParameter(new TypedParameter(typeof(DbContextOptions), optionsBuilder.Options))
+                .InstancePerLifetimeScope();
+            
+            builder.RegisterType<CourseListRepo>()
+                .As<ICourseListRepoReadOnly>()
+                .InstancePerLifetimeScope();
+            
+            
+            builder.RegisterType<CreateCourseRepo>()
+                .As<ICreateCourseRepo>()
                 .InstancePerLifetimeScope();
             
         }

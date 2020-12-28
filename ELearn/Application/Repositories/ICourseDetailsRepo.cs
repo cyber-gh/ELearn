@@ -8,7 +8,7 @@ namespace ELearn.Application.Repositories
 {
     public interface ICourseDetailsRepo
     {
-        Task<CourseOverview> Get(Guid id);
+        Task<CourseOverview?> Get(Guid id);
         Task<IEnumerable<Lesson>> GetLessons(Guid id);
         Task<IEnumerable<Review>> GetReviews(Guid id);
 

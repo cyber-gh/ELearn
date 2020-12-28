@@ -4,7 +4,7 @@ namespace ELearn.Domain
 {
     public sealed class CourseOverview: IEntity
     {
-        public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, Category category)
+        public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, Category? category)
         {
             Id = id;
             Title = title;
@@ -21,6 +21,6 @@ namespace ELearn.Domain
         public String Description { get; set; }
         public int Length { get; set; } //seconds total
         public UserLevel UserLevel { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
     }
 }

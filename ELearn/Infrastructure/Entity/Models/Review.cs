@@ -11,5 +11,14 @@ namespace ELearn.Infrastructure.Entity.Models
         public string Title { get; set; }
         public string Comment { get; set; }
         public int Rating { get; set; } // 1 .. 5
+
+        public Domain.Review ToModel()
+        {
+            return new Domain.Review(Id, UserId, Title, Comment, Rating);
+        }
+        
+        
     }
+    
+    
 }
