@@ -34,7 +34,7 @@ namespace Tests
 
         }
 
-        public void AssertRequestOk<T>(T original, IActionResult result) where T : class
+        private void AssertRequestOk<T>(T original, IActionResult result) where T : class
         {
             var okResult = result as ObjectResult;
             Assert.True(okResult != null);

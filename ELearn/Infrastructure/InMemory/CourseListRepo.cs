@@ -16,11 +16,12 @@ namespace ELearn.Infrastructure.InMemory
         public CourseListRepo()
         {
             const string link = "https://spin.atomicobject.com/wp-content/uploads/research.jpg";
-            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner )));
-            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is another test", link, "Test Description", 120, UserLevel.Beginner )));
-            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "Interesting test", link, "Test Description", 120, UserLevel.Beginner )));
-            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner )));
-            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner )));
+            Category category = new Category(Guid.NewGuid(), "Main");
+            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner, category )));
+            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is another test", link, "Test Description", 120, UserLevel.Beginner, category )));
+            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "Interesting test", link, "Test Description", 120, UserLevel.Beginner, category )));
+            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner, category )));
+            Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner, category )));
         }
 
         public async Task<IEnumerable<CourseOverview>> GetAll()
@@ -30,7 +31,9 @@ namespace ELearn.Infrastructure.InMemory
 
         public async Task<IEnumerable<CourseOverview>> SearchCourse(string pattern)
         {
-            return Courses.OrderBy(p => p.Title.LevenshteinDistance(pattern)).Select(p => p.Overview).Take(5);
+            return Courses.OrderBy(p => p.Overview.Title.LevenshteinDistance(pattern))
+                .Where(p => (p.Overview.Title.LevenshteinDistance(pattern) < Math.Max(p.Overview.Title.Length, pattern.Length) * 0.5 ) || (p.Overview.Title.ToLower().Contains(pattern.ToLower())) ).ToList()
+                .Select(p => p.Overview);
         }
 
         public async Task<IEnumerable<CourseOverview>> GetByCategory(Guid categoryId)

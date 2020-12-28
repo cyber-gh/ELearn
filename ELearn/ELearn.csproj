@@ -11,11 +11,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.1.0" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0" />
@@ -34,12 +33,12 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Infrastructure\Entity" />
-    </ItemGroup>
-    <ItemGroup>
       <_ContentIncludedByDefault Remove="Pages\Error.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\Shared\_LoginPartial.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApi\Pages\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApi\Pages\Shared\_LoginPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApi\Pages\_ViewImports.cshtml" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
