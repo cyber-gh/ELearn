@@ -8,3 +8,4 @@ riderModule.iml
 /ELearn/Migrations/
 /ELearn/app.db-shm
 /ELearn/app.db-wal
+ELearn/app.db
