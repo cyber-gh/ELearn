@@ -67,6 +67,11 @@ namespace ELearn.Infrastructure.InMemory
             throw new NotImplementedException();
         }
 
+        public Task UnassignCategory(Guid courseId, Guid categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddLessons(Guid courseId, List<Lesson> lessons)
         {
             throw new NotImplementedException();

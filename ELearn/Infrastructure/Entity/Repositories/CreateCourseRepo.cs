@@ -53,6 +53,18 @@ namespace ELearn.Infrastructure.Entity.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UnassignCategory(Guid courseId, Guid categoryId)
+        {
+            var course = await _context.Courses
+                .Include(p => p.Categories)
+                .FirstOrDefaultAsync(p => p.Id == courseId);
+            var category = await _context.Categories.FirstOrDefaultAsync(p => p.Id == categoryId);
+
+            course.Categories.Remove(category);
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddLessons(Guid courseId, List<Lesson> lessons)
         {
             List<Models.Lesson> l = lessons.Select(p => new Models.Lesson(p.Id, courseId, p.Title, p.VideoSrc, null)).ToList();

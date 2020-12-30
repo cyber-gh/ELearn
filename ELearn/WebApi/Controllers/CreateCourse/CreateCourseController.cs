@@ -68,6 +68,15 @@ namespace ELearn.WebApi.Controllers.CreateCourse
 
             return Ok();
         }
+        
+        [HttpDelete("category")]
+        public async Task<IActionResult> UnassignCategory([Required] Guid categoryId, [Required] Guid courseId)
+        {
+
+            await _repo.UnassignCategory(courseId, categoryId);
+
+            return Ok();
+        }
 
     }
 }

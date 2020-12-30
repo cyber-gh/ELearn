@@ -26,4 +26,5 @@
     &lt;TestId&gt;xUnit::EFFA5795-93FE-401A-9B9D-2DEA48645E3B::net5.0::Tests.CourseListTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::EFFA5795-93FE-401A-9B9D-2DEA48645E3B::net5.0::Tests.CreateCourseTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unassign/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

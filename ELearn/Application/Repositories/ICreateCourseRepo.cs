@@ -10,6 +10,7 @@ namespace ELearn.Application.Repositories
         Task<CourseOverview> Create(CourseOverview overview);
 
         Task AssignCategory(Guid courseId, Guid categoryId);
+        Task UnassignCategory(Guid courseId, Guid categoryId);
         async Task AddLesson(Guid courseId, Lesson lesson)
         {
             await AddLessons(courseId, new List<Lesson> {lesson});
