@@ -1,11 +1,14 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using ELearn.Domain;
 
 namespace ELearn.Infrastructure.Entity.Models
 {
     public sealed class Course
     {
-        public Course(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, Category? category = null)
+        public Course(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, ICollection<Category> categories)
         {
             Id = id;
             Title = title;
@@ -13,7 +16,7 @@ namespace ELearn.Infrastructure.Entity.Models
             Description = description;
             Length = length;
             UserLevel = userLevel;
-            Category = category;
+            Categories = categories;
         }
 
         public Course(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel)
@@ -24,6 +27,12 @@ namespace ELearn.Infrastructure.Entity.Models
             Description = description;
             Length = length;
             UserLevel = userLevel;
+            Categories = new List<Category>();
+        }
+
+        public Course()
+        {
+            Categories = new HashSet<Category>();
         }
 
         public Guid Id { get; set; }
@@ -32,12 +41,16 @@ namespace ELearn.Infrastructure.Entity.Models
         public String Description { get; set; }
         public int Length { get; set; } //seconds total
         public UserLevel UserLevel { get; set; }
-        public Category? Category { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
         public Domain.CourseOverview ToModel()
         {
-            var category = Category == null ? null : new Domain.Category(Category.Id, Category.Name);
-            
+            //var category = Category == null ? null : new Domain.Category(Category.Id, Category.Name);
+            var categories = new List<Domain.Category>();
+            foreach (var category in Categories)
+            {
+                categories.Add(category.ToModel());
+            }
             return new Domain.CourseOverview(
                 Id,
                 Title,
@@ -45,7 +58,7 @@ namespace ELearn.Infrastructure.Entity.Models
                 Description,
                 Length,
                 UserLevel,
-                category
+                categories
             );
         }
     }

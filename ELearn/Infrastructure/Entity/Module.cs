@@ -30,6 +30,11 @@ namespace ELearn.Infrastructure.Entity
                 .As<ICreateCourseRepo>()
                 .InstancePerLifetimeScope();
             
+            
+            builder.RegisterType<CategoryRepo>()
+                .As<ICategoriesRepo>()
+                .InstancePerLifetimeScope();
+            
         }
     }
 }

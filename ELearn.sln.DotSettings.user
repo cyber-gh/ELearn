@@ -13,14 +13,14 @@
     &lt;TestId&gt;xUnit::E62D709A-44BD-4D25-A7F8-EC6F87E9E8BE::net5.0::ELearnTests.Controllers.CourseListTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b67ba6a1_002D8a41_002D46aa_002Da454_002D85b0fe89f8f8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UnitTest1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b67ba6a1_002D8a41_002D46aa_002Da454_002D85b0fe89f8f8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UnitTest1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::EFFA5795-93FE-401A-9B9D-2DEA48645E3B::net5.0::Tests.UnitTest1&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::EFFA5795-93FE-401A-9B9D-2DEA48645E3B::net5.0::Tests.CourseListTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::EFFA5795-93FE-401A-9B9D-2DEA48645E3B::net5.0::Tests.CreateCourseTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d1d5ae0f_002D2010_002D48d2_002Da702_002D4a0b11e4182e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CourseListTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d1d5ae0f_002D2010_002D48d2_002Da702_002D4a0b11e4182e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CourseListTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::EFFA5795-93FE-401A-9B9D-2DEA48645E3B::net5.0::Tests.UnitTest1&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::EFFA5795-93FE-401A-9B9D-2DEA48645E3B::net5.0::Tests.CourseListTests&lt;/TestId&gt;

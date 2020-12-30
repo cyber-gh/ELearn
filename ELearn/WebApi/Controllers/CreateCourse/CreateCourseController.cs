@@ -21,7 +21,7 @@ namespace ELearn.WebApi.Controllers.CreateCourse
         }
 
 
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<IActionResult> AddCourse([FromBody] CreateCourseRequest request)
         {
 
@@ -32,7 +32,7 @@ namespace ELearn.WebApi.Controllers.CreateCourse
             }
             
             var model = new CourseOverview(Guid.NewGuid(), request.Title, request.PreviewImageUrl, request.Description,
-                request.Length, request.UserLevel, null);
+                request.Length, request.UserLevel);
             
             
             var data = await _repo.Create(model);
@@ -56,6 +56,15 @@ namespace ELearn.WebApi.Controllers.CreateCourse
         public async Task<IActionResult> RemoveLesson([Required] Guid lessonId)
         {
             await _repo.RemoveLesson(lessonId);
+
+            return Ok();
+        }
+
+        [HttpPost("category")]
+        public async Task<IActionResult> AssignCategory([Required] Guid categoryId, [Required] Guid courseId)
+        {
+
+            await _repo.AssignCategory(courseId, categoryId);
 
             return Ok();
         }

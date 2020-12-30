@@ -15,5 +15,19 @@ namespace ELearn.Infrastructure.Entity
         public DbSet<Models.Category> Categories { get; set; }
         public DbSet<Models.Course> Courses { get; set; }
         
+        // public DbSet<Models.CategoryCourse> CategoryCourses { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder
+                .Entity<Category>()
+                .HasMany(p => p.Courses)
+                .WithMany(p => p.Categories)
+                .UsingEntity(j => j.ToTable("CategoryCourse"));
+
+        }
     }
 }

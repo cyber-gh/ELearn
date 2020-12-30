@@ -2,9 +2,10 @@ using System.Threading.Tasks;
 using ELearn.Application.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ELearn.Controllers.CourseList
+namespace ELearn.WebApi.Controllers.CourseList
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class CourseListController : Controller
     {
 

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using ELearn.Application.Repositories;
-using ELearn.Controllers.CourseList;
 using ELearn.Domain;
+using ELearn.WebApi.Controllers.CourseList;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;

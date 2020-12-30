@@ -22,6 +22,11 @@ namespace ELearn.Domain
 
         public CourseOverview Overview;
 
+        public Course()
+        {
+            
+        }
+
         public Guid Id
         {
             get => Overview.Id;

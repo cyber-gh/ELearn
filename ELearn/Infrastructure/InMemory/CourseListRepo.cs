@@ -16,7 +16,7 @@ namespace ELearn.Infrastructure.InMemory
         public CourseListRepo()
         {
             const string link = "https://spin.atomicobject.com/wp-content/uploads/research.jpg";
-            Category category = new Category(Guid.NewGuid(), "Main");
+            var category = new List<Category>() {new Category(Guid.NewGuid(), "Main")};
             Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner, category )));
             Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "This is another test", link, "Test Description", 120, UserLevel.Beginner, category )));
             Courses.Add(new Course(new CourseOverview(Guid.NewGuid(), "Interesting test", link, "Test Description", 120, UserLevel.Beginner, category )));
@@ -60,6 +60,11 @@ namespace ELearn.Infrastructure.InMemory
         {
             Courses.Add(new Course(overview, new List<Lesson>(), new List<Review>()));
             return overview;
+        }
+
+        public Task AssignCategory(Guid courseId, Guid categoryId)
+        {
+            throw new NotImplementedException();
         }
 
         public Task AddLessons(Guid courseId, List<Lesson> lessons)
