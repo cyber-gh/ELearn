@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Swashbuckle;
+
 
 namespace ELearn
 {
@@ -43,6 +46,10 @@ namespace ELearn
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
             services.AddRazorPages();
+            services.AddSwaggerGen(o =>
+            {
+                o.SwaggerDoc("v1", new OpenApiInfo() {Title = "ELearning API", Version = "v1"});
+            });
 
             // services.AddScoped<ICourseListRepoReadOnly, CourseListRepo>();
             // services.AddScoped<ICourseDetailsRepo, CourseListRepo>();
@@ -62,6 +69,12 @@ namespace ELearn
                 .AddEnvironmentVariables();
             this.Configuration = builder.Build();
             
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "ELearning API");
+            });
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,6 +86,8 @@ namespace ELearn
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+           
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

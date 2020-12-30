@@ -66,6 +66,14 @@ namespace ELearn.WebApi.Controllers.Categories
             return Ok();
 
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([Required] Guid idx)
+        {
+            await _repo.Delete(idx);
+
+            return Ok();
+        }
         
     }
 }
