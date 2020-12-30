@@ -49,8 +49,8 @@ namespace ELearn.WebApi.Controllers.Categories
                 return BadRequest("Invalid Data");
             }
 
-            await _repo.Create(new Category(Guid.NewGuid(), request.Name));
-            return Ok();
+            var r = await _repo.Create(new Category(Guid.NewGuid(), request.Name));
+            return Ok(r);
         }
 
         [HttpPost]
@@ -61,9 +61,9 @@ namespace ELearn.WebApi.Controllers.Categories
                 return BadRequest("Invalid Data");
             }
 
-            await _repo.Update(idx, new Category(idx, request.Name));
+            var r = await _repo.Update(idx, new Category(idx, request.Name));
 
-            return Ok();
+            return Ok(r);
 
         }
 

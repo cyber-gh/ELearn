@@ -38,7 +38,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 .Where(p => (p.Title.LevenshteinDistance(pattern) < Math.Max(p.Title.Length, pattern.Length) * 0.5 ) || (p.Title.ToLower().Contains(pattern.ToLower())) ).ToList()
                 .Select(p => p);
 
-            return filtered.Select(e => e.ToModel());
+            return filtered.Select(e => e.ToModel()).ToList();
         }
 
         public async Task<IEnumerable<CourseOverview>> GetByCategory(Guid categoryId)
@@ -47,7 +47,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 .Include(c => c.Categories)
                 .Where(p => p.Categories.Any(c => c.Id == categoryId)).ToListAsync();
             
-            return courses.Select(e => e.ToModel());
+            return courses.Select(e => e.ToModel()).ToList();
         }
     }
 }

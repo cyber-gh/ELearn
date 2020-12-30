@@ -6,11 +6,12 @@ using ELearn.WebApi.Controllers.CreateCourse;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Moq;
+using Tests.Generic;
 using Xunit;
 
 namespace Tests
 {
-    public class CreateCourseTests
+    public class CreateCourseTests: GenericTests
     {
 
         private static Mock<IObjectModelValidator> validator()
@@ -26,8 +27,6 @@ namespace Tests
         [Fact]
         public async Task CreatesNewCourseSavesToDb()
         {
-            
-            
             var mockRepo = new Mock<ICreateCourseRepo>();
             var request = new CreateCourseRequest("This is a course", "https://www.google.com", "Most awesome course ever", 120, UserLevel.Beginner);
             var model = new CourseOverview(Guid.Empty, "", "", "", 2, UserLevel.Beginner, null);
@@ -42,24 +41,6 @@ namespace Tests
             mockRepo.Verify(m => m.Create(It.IsAny<CourseOverview>()), Times.Once);
 
         }
-
-        // [Fact]
-        // public async Task CreatesNewCourseValidatesRequest()
-        // {
-        //     var mockRepo = new Mock<ICreateCourseRepo>();
-        //
-        //     var request = new CreateCourseRequest("", "https://www.google.com", "Most awesome course ever", -5, UserLevel.Beginner);
-        //     var model = new CourseOverview(Guid.Empty, "", "", "", 2, UserLevel.Beginner, null);
-        //     
-        //
-        //     var controller = new CreateCourseController(mockRepo.Object);
-        //     controller.ObjectValidator = validator().Object;
-        //     var result = await controller.AddCourse(request);
-        //
-        //     // Assert.IsType<BadRequestResult>(result);
-        //     
-        //     mockRepo.Verify(m => m.Create(It.IsAny<CourseOverview>()), Times.Never);
-        // }
 
         [Fact]
         public async Task CanAddNewCourseLesson()

@@ -55,9 +55,11 @@ namespace ELearn.Infrastructure.Entity.Repositories
 
         public async Task Delete(Guid idx)
         {
-            var c = new Models.Category() {Id = idx};
-            _context.Categories.Attach(c);
-            _context.Categories.Remove(c);
+            var toDelete = await _context.Categories.FirstOrDefaultAsync(p => p.Id == idx);
+            if (toDelete != null)
+            {
+                _context.Categories.Remove(toDelete);
+            }
             await _context.SaveChangesAsync();
         }
     }

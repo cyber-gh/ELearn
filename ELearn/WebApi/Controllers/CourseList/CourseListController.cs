@@ -20,7 +20,7 @@ namespace ELearn.WebApi.Controllers.CourseList
         public async Task<IActionResult> Get()
         {
             var courses = await _repo.GetAll();
-            return new ObjectResult(courses);
+            return Ok(courses);
         }
 
         [HttpGet("search")]
@@ -28,7 +28,7 @@ namespace ELearn.WebApi.Controllers.CourseList
         {
             // return new ObjectResult(pattern);
             var courses = await _repo.SearchCourse(pattern);
-            return new ObjectResult(courses);
+            return Ok(courses);
         }
     }
 }

@@ -47,10 +47,14 @@ namespace ELearn.Infrastructure.Entity.Models
         {
             //var category = Category == null ? null : new Domain.Category(Category.Id, Category.Name);
             var categories = new List<Domain.Category>();
-            foreach (var category in Categories)
+            if (Categories != null)
             {
-                categories.Add(category.ToModel());
+                foreach (var category in Categories)
+                {
+                    categories.Add(category.ToModel());
+                }
             }
+
             return new Domain.CourseOverview(
                 Id,
                 Title,
