@@ -9,3 +9,5 @@ riderModule.iml
 /ELearn/app.db-shm
 /ELearn/app.db-wal
 ELearn/app.db
+/ELearn/ClientApp/node_modules/*
+/ELearn/ClientApp/node_modules/
