@@ -1,12 +1,13 @@
 import React from 'react';
 import Navbar from "./components/Navbar";
 import {HashRouter as Router, Route, Switch, Redirect} from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/HomeView";
 import Footer from './components/Footer';
 import CourseView from './pages/CourseView';
 import {RouteData} from "./interfaces";
-import AddCourseView from "./pages/AddCouseView";
+import AddCourseView from "./pages/AddCourseView";
 import {SnackbarProvider} from "./components/AppSnackBar"
+import AddLessonsView from "./pages/AddLessonsView";
 
 const CustomRoute = ({path, condition, redirect, component: Component}: RouteData) => {
 	if (condition) {
@@ -28,6 +29,7 @@ const App = () => {
 						<CustomRoute path = "/home" component = {Home}/>
 						<CustomRoute redirect = "/" path = "/course/:id" component = {CourseView}/> 
 						<CustomRoute path="/add-course" component={AddCourseView}/>
+						<CustomRoute path="/add-lessons/:id" component={AddLessonsView}/>
 					</Switch>
 				</section>
 				<Footer/>

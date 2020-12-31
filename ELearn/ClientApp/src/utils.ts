@@ -10,6 +10,13 @@ const cacheImages = async (src: string[]) => {
     await Promise.all(promises);
 }
 
+const generateRandomString = () => {
+    let s1 = Math.random().toString(36).substring(7);
+    let s2 = Math.random().toString(36).substring(7);
+    let s3 = Math.random().toString(36).substring(7);
+    return s1 + s2 + s3;
+}
+
 const breakpoints = {
     mobile: 480,
     tablet: 768,
@@ -17,4 +24,4 @@ const breakpoints = {
     largeScreen: 1200,
 }
 
-export {cacheImages, breakpoints}
+export {cacheImages, generateRandomString, breakpoints}

@@ -6,8 +6,10 @@ import {AddCourseModel, Category} from "../interfaces";
 import {assignCategory, getCategories, postCourse} from "../api";
 import {CircularProgress, LinearProgress, Snackbar} from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
-import {cacheImages} from "../utils";
+import {cacheImages, generateRandomString} from "../utils";
 import {SnackbarContext} from "../components/AppSnackBar";
+import {bucket, uploadFile} from "../components/FileUploader";
+import {stringify} from "querystring";
 
 
 export interface Props {
@@ -18,7 +20,7 @@ const userLevels = ["Beginner", "Intermediate", "Expert"];
 
 const defaultFields = {
     title: "",
-    previewImageUrl: null,
+    previewImageUrl: "",
     description: "",
     length: 120,
     category: "",
@@ -27,14 +29,13 @@ const defaultFields = {
 
 const AddCourse =  (props: Props) => {
     const {setData: setSnackbar} = useContext(SnackbarContext);
+    
     const [loading, setLoading] = useState(false);
+    const [loadingProgress, setLoadingProgress] = useState(0);
     const [formLoading, setFormLoading] = useState(false);
     const [fields, setFields] = useState(defaultFields);
-    const [error, setError] = useState<string | null>(null);
     const [categories, setCategories] = useState<Category[]>([]);
     let inputRef = useRef<HTMLInputElement | null>(null);
-    console.log(loading);
-    console.log(fields);
     
     const setField = (field: string) => (e) => {
         const newFields = {
@@ -45,15 +46,31 @@ const AddCourse =  (props: Props) => {
         console.log(newFields);
     }
     
+    const withFallback = async (action) => {
+        try {
+            await action()
+        } catch (e) {
+            // console.log(e);
+            console.log(e.message);
+            setSnackbar({
+                message: e.message,
+                type: "error"
+            })
+        }
+    }
+    
     const addCourse = async (e) => {
         e.preventDefault();
         setFormLoading(true);
         const model: AddCourseModel = {
             ...fields
         }
-        const course = await postCourse(model);
-        const categoryId = fields.category;
-        await assignCategory(course.id, categoryId);
+        await withFallback(async () => {
+            const course = await postCourse(model);
+            const categoryId = fields.category;
+            await assignCategory(course.id, categoryId);
+        })
+        
         setFormLoading(false);
     }
     
@@ -82,17 +99,19 @@ const AddCourse =  (props: Props) => {
             const file = input.files[0];
             let blob = file.slice(0, file.size, 'image/*');
             let extension = file.name.split(".").slice(-1)[0];
-            let randomString = Math.random().toString(36).substring(7);
+            let randomString = generateRandomString();
             let renamedFile = new File([blob], `${randomString}.${extension}`, {type: 'image/' + extension});
-            let response = await S3FileUpload.uploadFile(renamedFile, config);
-            await cacheImages([response.location]);
+            // let response = await S3FileUpload.uploadFile(renamedFile, config);
+            let location = await uploadFile(renamedFile, (progress) => {
+                setLoadingProgress(progress);
+            })
+            await cacheImages([location]);
             setLoading(false);
             setFields({
                 ...fields,
-                previewImageUrl: response.location
+                previewImageUrl: location
             })
         }
-        
     }
     
     return (
@@ -115,7 +134,7 @@ const AddCourse =  (props: Props) => {
                         </div>
                         
                         <div className="image-uploader">
-                            {loading && <LinearProgress className="loader" />}
+                            {loading && <LinearProgress className="loader" variant="determinate" value={loadingProgress} />}
                             {fields.previewImageUrl !== null && <img src={fields.previewImageUrl! }/>}
                             <input onChange={handleUpload} ref = {inputRef} type = "file" accept = "image/*" multiple = {false}/>
                             {!loading && <button type="button" onClick={handleClick} className={fields.previewImageUrl ? "absolute" : ""}>Upload Image</button>}

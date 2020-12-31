@@ -14,6 +14,7 @@
     background-color: white;
     margin: 0 auto;
     margin-top: 50px;
+    margin-bottom: 50px;
     padding: 20px;
     button, .create {
         background-color: $color_2;
@@ -26,7 +27,7 @@
         transition: 0.2s background-color, 0.2s margin-top;
         outline: none;
         &:hover {
-            background-color: #00e677
+            background-color: $color_2;
         }
         &:active {
             margin-top: 2px;

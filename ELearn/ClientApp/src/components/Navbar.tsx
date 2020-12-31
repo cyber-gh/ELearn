@@ -18,7 +18,7 @@ export default (props: Props) => {
                 <p>Browse</p>
                 <div className = "input_box">
                     <Search className = "search_icon"/>
-                    <input className = "navbar_input"/>
+                    <input className = "navbar_input" placeholder="Search for a course"/>
                 </div>
             </div>
 

@@ -32,8 +32,14 @@ const makeNetworkCall = async (url: string, params: [string, string][] = [], met
     }
     const response = await fetch(link, options);
     const raw = await response.text();
+    if (response.status >= 400) {
+        const json = JSON.parse(raw);
+        throw new Error(json.title)
+    }
     if (raw === "") return {};
     else return JSON.parse(raw);
 }
+
+
 
 export {getCategories, postCourse, assignCategory};
