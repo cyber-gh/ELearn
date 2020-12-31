@@ -12,3 +12,5 @@ ELearn/app.db
 /ELearn/ClientApp/node_modules/*
 /ELearn/ClientApp/node_modules/
 /ELearn/ClientApp/.env
+*.DS_Store
+*.env
