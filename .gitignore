@@ -11,3 +11,4 @@ riderModule.iml
 ELearn/app.db
 /ELearn/ClientApp/node_modules/*
 /ELearn/ClientApp/node_modules/
+/ELearn/ClientApp/.env

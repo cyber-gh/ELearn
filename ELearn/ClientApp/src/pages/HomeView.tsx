@@ -9,7 +9,6 @@ export interface Props {
 }
 
 const Home = (props: Props) => {
-
     return (
         <section className="home">
             <CourseSlider data = {courseSliderData} />

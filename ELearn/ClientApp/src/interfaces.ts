@@ -45,4 +45,11 @@ interface AddCourseModel {
     userLevel: string
 }
 
-export type {CourseCardData, CourseSliderElement, RouteData, Category, CourseModel, AddCourseModel};
+interface LessonModel {
+    id: string,
+    title: string,
+    videoSrc: string,
+    quiz?: object
+}
+
+export type {CourseCardData, CourseSliderElement, RouteData, Category, CourseModel, AddCourseModel, LessonModel};

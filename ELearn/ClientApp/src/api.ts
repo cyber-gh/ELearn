@@ -1,4 +1,4 @@
-import {AddCourseModel, Category, CourseModel} from "./interfaces";
+import {AddCourseModel, Category, CourseModel, LessonModel} from "./interfaces";
 import {useEffect} from "react";
 
 type Method = "GET" | "POST" | "DELETE" | "PUT";
@@ -22,6 +22,19 @@ const assignCategory = async (courseId: string, categoryId: string): Promise<obj
     })) 
 }
 
+const addLesson = async (courseId: string, title: string, videoSrc: string): Promise<object> => {
+    const url = "api/createcourse/lesson"
+    return (await makeNetworkCall(url, [], "POST", {
+        courseId: courseId,
+        title: title,
+        videoSrc: videoSrc
+    }))
+}
+
+const getLessons = async (courseId: string): Promise<LessonModel[]> => {
+    const url = "api/coursedetails/lessons"
+    return (await makeNetworkCall(url, [["id", courseId]], "GET", null)) as LessonModel[];
+}
 
 const makeNetworkCall = async (url: string, params: [string, string][] = [], method: Method = "GET", data: any | null = null): Promise<object> => {
     const link = `${url}?${params.map(it => it[0] + '=' + it[1]).join(",")}`

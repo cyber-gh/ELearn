@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useRef, useState} from 'react'
 import GrayBackground from "../components/GrayBackground";
 import S3FileUpload from "react-s3";
-import config from "../components/s3config";
 import {AddCourseModel, Category} from "../interfaces";
 import {assignCategory, getCategories, postCourse} from "../api";
 import {CircularProgress, LinearProgress, Snackbar} from '@material-ui/core';
