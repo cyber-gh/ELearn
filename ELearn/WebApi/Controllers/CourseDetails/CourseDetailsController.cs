@@ -31,6 +31,7 @@ namespace ELearn.WebApi.Controllers.CourseDetails
         [HttpGet("lessons")]
         public async Task<IActionResult> GetLessons([Required] Guid id)
         {
+            
             var lessons = await _repo.GetLessons(id);
 
             return Ok(lessons);

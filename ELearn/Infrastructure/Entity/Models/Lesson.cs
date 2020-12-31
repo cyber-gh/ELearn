@@ -30,7 +30,7 @@ namespace ELearn.Infrastructure.Entity.Models
 
         public Domain.Lesson ToModel()
         {
-            return new Domain.Lesson(Id, Title, Title, Quiz.ToModel());
+            return new Domain.Lesson(Id, Title, VideoSrc, Quiz?.ToModel());
         }
 
         

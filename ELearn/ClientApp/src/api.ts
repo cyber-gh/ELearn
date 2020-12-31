@@ -22,18 +22,23 @@ const assignCategory = async (courseId: string, categoryId: string): Promise<obj
     })) 
 }
 
-const addLesson = async (courseId: string, title: string, videoSrc: string): Promise<object> => {
+const addLesson = async (courseId: string, title: string, videoSrc: string): Promise<LessonModel> => {
     const url = "api/createcourse/lesson"
     return (await makeNetworkCall(url, [], "POST", {
         courseId: courseId,
         title: title,
         videoSrc: videoSrc
-    }))
+    })) as LessonModel;
 }
 
 const getLessons = async (courseId: string): Promise<LessonModel[]> => {
     const url = "api/coursedetails/lessons"
     return (await makeNetworkCall(url, [["id", courseId]], "GET", null)) as LessonModel[];
+}
+
+const removeLesson = async (lessonId: string): Promise <object> => {
+    const url = "/api/CreateCourse/lesson";
+    return (await makeNetworkCall(url, [["lessonId", lessonId]], "DELETE", null));
 }
 
 const makeNetworkCall = async (url: string, params: [string, string][] = [], method: Method = "GET", data: any | null = null): Promise<object> => {
@@ -55,4 +60,4 @@ const makeNetworkCall = async (url: string, params: [string, string][] = [], met
 
 
 
-export {getCategories, postCourse, assignCategory};
+export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson};

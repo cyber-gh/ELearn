@@ -47,9 +47,10 @@ namespace ELearn.WebApi.Controllers.CreateCourse
                 return BadRequest("Invalid Form data");
             }
 
-            await _repo.AddLesson(request.CourseId, new Lesson(Guid.NewGuid(), request.Title, request.VideoSrc, null));
+            var lesson = new Lesson(Guid.NewGuid(), request.Title, request.VideoSrc, null);
+            await _repo.AddLesson(request.CourseId, lesson);
 
-            return Ok();
+            return Ok(lesson);
         }
 
         [HttpDelete("lesson")]

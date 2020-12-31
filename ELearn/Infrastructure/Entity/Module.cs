@@ -21,6 +21,10 @@ namespace ELearn.Infrastructure.Entity
                 .WithParameter(new TypedParameter(typeof(DbContextOptions), optionsBuilder.Options))
                 .InstancePerLifetimeScope();
             
+            builder.RegisterType<CourseDetailsRepo>()
+                .As<ICourseDetailsRepo>()
+                .InstancePerLifetimeScope();
+            
             builder.RegisterType<CourseListRepo>()
                 .As<ICourseListRepoReadOnly>()
                 .InstancePerLifetimeScope();
