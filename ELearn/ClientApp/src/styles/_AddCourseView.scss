@@ -1,3 +1,12 @@
+@keyframes image-appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+
 .course-overview {
     font-size: 22px;
     width: 100%;
@@ -53,6 +62,11 @@
             background-color: #efefef;
             overflow: hidden;
             position: relative;
+            .loader {
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
             button {
                 font-size: 20px;
                 box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
@@ -61,6 +75,9 @@
                 display: none;
             }
             img {
+                animation-name: image-appear;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
                 width: 100%;
             }
             .absolute {
@@ -109,6 +126,13 @@
         }
         .create {
             width: 100%;
+        }
+        
+        .circular-progress {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 }

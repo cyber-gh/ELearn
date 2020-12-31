@@ -61,19 +61,19 @@ namespace ELearn.WebApi.Controllers.CreateCourse
         }
 
         [HttpPost("category")]
-        public async Task<IActionResult> AssignCategory([Required] Guid categoryId, [Required] Guid courseId)
+        public async Task<IActionResult> AssignCategory([FromBody] AssignCategoryRequest request)
         {
 
-            await _repo.AssignCategory(courseId, categoryId);
+            await _repo.AssignCategory(request.CourseId, request.CategoryId);
 
             return Ok();
         }
         
         [HttpDelete("category")]
-        public async Task<IActionResult> UnassignCategory([Required] Guid categoryId, [Required] Guid courseId)
+        public async Task<IActionResult> UnassignCategory([FromBody] AssignCategoryRequest request)
         {
 
-            await _repo.UnassignCategory(courseId, categoryId);
+            await _repo.UnassignCategory(request.CourseId, request.CategoryId);
 
             return Ok();
         }

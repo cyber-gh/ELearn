@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import CourseView from './pages/CourseView';
 import {RouteData} from "./interfaces";
 import AddCourseView from "./pages/AddCouseView";
+import {SnackbarProvider} from "./components/AppSnackBar"
 
 const CustomRoute = ({path, condition, redirect, component: Component}: RouteData) => {
 	if (condition) {
@@ -18,18 +19,20 @@ const CustomRoute = ({path, condition, redirect, component: Component}: RouteDat
 
 const App = () => {
 	return(
-		<Router>
-			<Navbar/>
-			<section className="main-window-container">
-				<Switch>
-					<Redirect exact from = "/" to = "/home"/>
-					<CustomRoute path = "/home" component = {Home}/>
-					<CustomRoute redirect = "/" path = "/course/:id" component = {CourseView}/> 
-					<CustomRoute path="/add-course" component={AddCourseView}/>
-				</Switch>
-			</section>
-			<Footer/>
-		</Router>
+		<SnackbarProvider>
+			<Router>
+				<Navbar/>
+				<section className="main-window-container">
+					<Switch>
+						<Redirect exact from = "/" to = "/home"/>
+						<CustomRoute path = "/home" component = {Home}/>
+						<CustomRoute redirect = "/" path = "/course/:id" component = {CourseView}/> 
+						<CustomRoute path="/add-course" component={AddCourseView}/>
+					</Switch>
+				</section>
+				<Footer/>
+			</Router>
+		</SnackbarProvider>
 	)
 }
 

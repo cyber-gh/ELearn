@@ -22,4 +22,27 @@ interface RouteData {
     props?: object
 }
 
-export type {CourseCardData, CourseSliderElement, RouteData};
+interface Category {
+    id: string,
+    name: string
+}
+
+interface CourseModel {
+    id: string,
+    title: string,
+    previewImageUrl: string,
+    description: string,
+    length: number,
+    userLevel: string,
+    categories: Category[]
+}
+
+interface AddCourseModel {
+    title: string,
+    previewImageUrl: string | null,
+    description: string,
+    length: number,
+    userLevel: string
+}
+
+export type {CourseCardData, CourseSliderElement, RouteData, Category, CourseModel, AddCourseModel};
