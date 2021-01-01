@@ -28,7 +28,6 @@ const defaultFields = {
 
 const AddCourse =  (props: Props) => {
     const {setData: setSnackbar} = useContext(SnackbarContext);
-    
     const [loading, setLoading] = useState(false);
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [formLoading, setFormLoading] = useState(false);
@@ -42,7 +41,6 @@ const AddCourse =  (props: Props) => {
             [field]: e.target.value
         }
         setFields(newFields);
-        console.log(newFields);
     }
     
     const withFallback = async (action) => {
@@ -68,6 +66,8 @@ const AddCourse =  (props: Props) => {
             const course = await postCourse(model);
             const categoryId = fields.category;
             await assignCategory(course.id, categoryId);
+            setSnackbar({message: "Course added!", type: "success"})
+            props.history.push(`/add-lessons/${course.id}`)
         })
         
         setFormLoading(false);

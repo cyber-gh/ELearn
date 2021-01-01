@@ -10,5 +10,7 @@ namespace ELearn.Application.Repositories
         Task<IEnumerable<CourseOverview>> GetAll();
         Task<IEnumerable<CourseOverview>> SearchCourse(String pattern);
         Task<IEnumerable<CourseOverview>> GetByCategory(Guid categoryId);
+        Task<IEnumerable<CourseOverview>> GetByCategory(string name);
+        
     }
 }

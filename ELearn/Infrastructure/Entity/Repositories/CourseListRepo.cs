@@ -49,5 +49,23 @@ namespace ELearn.Infrastructure.Entity.Repositories
             
             return courses.Select(e => e.ToModel()).ToList();
         }
+
+        public async Task<IEnumerable<CourseOverview>> GetByCategory(string name)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower());
+
+            if (category != null)
+            {
+                return await _context.Courses
+                    .Include(c => c.Categories)
+                    .Where(p => p.Categories.Any(c => c.Id == category.Id)).Select(p => p.ToModel())
+                    .ToListAsync();
+            }
+            else
+            {
+                return new List<CourseOverview>();
+            }
+        }
     }
 }

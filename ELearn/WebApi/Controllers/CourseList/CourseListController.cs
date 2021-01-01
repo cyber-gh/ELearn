@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using ELearn.Application.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,14 @@ namespace ELearn.WebApi.Controllers.CourseList
         public async Task<IActionResult> Get()
         {
             var courses = await _repo.GetAll();
+            return Ok(courses);
+        }
+
+        [HttpGet("category")]
+        public async Task<IActionResult> GetByCategory([Required] string name)
+        {
+            var courses = await _repo.GetByCategory(name);
+
             return Ok(courses);
         }
 

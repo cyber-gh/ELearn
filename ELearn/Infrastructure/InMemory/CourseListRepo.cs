@@ -41,6 +41,11 @@ namespace ELearn.Infrastructure.InMemory
             return new List<CourseOverview>();
         }
 
+        public Task<IEnumerable<CourseOverview>> GetByCategory(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<CourseOverview> Get(Guid id)
         {
             return Courses.Select(p => p.Overview).First(p => p.Id == id);

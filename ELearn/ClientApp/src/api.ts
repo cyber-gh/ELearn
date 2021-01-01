@@ -3,14 +3,18 @@ import {useEffect} from "react";
 
 type Method = "GET" | "POST" | "DELETE" | "PUT";
 
+const getCoursesByCategory = async (category: string): Promise<CourseModel[]> => {
+    const url = "/api/courselist/category";
+    return (await makeNetworkCall(url, [["name", category]], "GET", null)) as CourseModel[];
+}
+
 const getCategories = async () :Promise<Category[]> => {
     const url = "/api/categories/all";
     return (await makeNetworkCall(url, [], "GET", null)) as Category[];
 }
 
 const postCourse = async (data: AddCourseModel) : Promise<CourseModel> => {
-    const url = "/api/createcourse"
-    
+    const url = "/api/createcourse";
     return (await makeNetworkCall(url, [], "POST", data) ) as CourseModel;
 }
 
@@ -60,4 +64,4 @@ const makeNetworkCall = async (url: string, params: [string, string][] = [], met
 
 
 
-export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson};
+export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory};

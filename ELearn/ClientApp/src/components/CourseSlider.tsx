@@ -6,16 +6,26 @@ import PlayArrow from '@material-ui/icons/PlayArrow';
 import { cacheImages } from '../utils';
 import { Link } from 'react-router-dom';
 import { CourseSliderElement } from '../interfaces';
+import {getCoursesByCategory} from "../api";
+import {CourseModel} from "../interfaces";
 
 export interface Props {
-    data: CourseSliderElement[];
+   [key: string]: any;
 }
-const CourseSlider = ({data}: Props) => {
+const CourseSlider = (props: Props) => {
     const [selected, setSelected] = useState(0);
-    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState <CourseModel[] | null> (null);
+    console.log(data);
+    
+    const getData = async () => {
+        let courses = await getCoursesByCategory("recommended");
+        const urls = courses.map(x => x.previewImageUrl);
+        await cacheImages(urls);
+        setData(courses);
+    }
 
     const next = () => {
-        if (selected + 1 !== data.length){
+        if (selected + 1 !== data!.length){
             setSelected(selected + 1);
         }
         else{
@@ -28,23 +38,32 @@ const CourseSlider = ({data}: Props) => {
             setSelected(selected - 1);
         }
         else{
-            setSelected(data.length - 1);
+            setSelected(data!.length - 1);
         }
     }
 
     useEffect(() => {
-        const urls = data.map(x => x.link);
-        cacheImages(urls);
+        getData();
     }, [])
+    
+    useEffect(() => {
+        if (data) {
+            let timeout = setTimeout(next, 6000);
+            return () => clearTimeout(timeout);
+        }
+    })
 
-    if (loading) {
-        return null;
+    if (!data) {
+        return (
+            <div className= "placeholder">
+            </div>
+        )
     }
-
+    
     return (
         <div className="course-slider">
             {data.map((x, index) => (
-                <div key = {x.link + index} className = {`banner ${index === selected ? "active": "inactive"}`} style = {{backgroundImage: `url(${x.link})`}}/>
+                <div key = {x.previewImageUrl + index} className = {`banner ${index === selected ? "active": "inactive"}`} style = {{backgroundImage: `url(${x.previewImageUrl})`}}/>
             ))}
             {data.map((x, index) => (
                 <div key = {x.title + x.description} className={`content ${index === selected ? "active": "inactive"}`}>
