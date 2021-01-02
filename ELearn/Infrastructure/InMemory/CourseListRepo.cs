@@ -82,7 +82,17 @@ namespace ELearn.Infrastructure.InMemory
             throw new NotImplementedException();
         }
 
+        Task<IEnumerable<Lesson>> ICreateCourseRepo.AddLessons(Guid courseId, List<Lesson> lessons)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task RemoveLesson(Guid lessonId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Lesson?> UpdateLesson(Guid idx, string newName)
         {
             throw new NotImplementedException();
         }

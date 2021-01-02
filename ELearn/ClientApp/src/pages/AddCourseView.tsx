@@ -3,16 +3,30 @@ import GrayBackground from "../components/GrayBackground";
 import S3FileUpload from "react-s3";
 import {AddCourseModel, Category} from "../interfaces";
 import {assignCategory, getCategories, postCourse} from "../api";
-import {CircularProgress, LinearProgress, Snackbar} from '@material-ui/core';
+import {
+    Button, Checkbox,
+    CircularProgress, Dialog, DialogActions,
+    DialogContent,
+    DialogTitle,
+    LinearProgress,
+    ListItemText,
+    MenuItem,
+    Snackbar
+} from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
-import {cacheImages, generateRandomString} from "../utils";
+import {cacheImages, generateRandomString, withFallback} from "../utils";
 import {SnackbarContext} from "../components/AppSnackBar";
 import {bucket, uploadFile} from "../components/FileUploader";
 import {stringify} from "querystring";
+import CategoryCheckBox from "../components/CategoryCheckBox";
 
 
 export interface Props {
     [key: string]: any
+}
+
+interface CategoryCheckModel {
+    [key: string]: boolean | undefined
 }
 
 const userLevels = ["Beginner", "Intermediate", "Expert"];
@@ -22,7 +36,6 @@ const defaultFields = {
     previewImageUrl: "",
     description: "",
     length: 120,
-    category: "",
     userLevel: userLevels[0]
 }
 
@@ -32,8 +45,20 @@ const AddCourse =  (props: Props) => {
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [formLoading, setFormLoading] = useState(false);
     const [fields, setFields] = useState(defaultFields);
+    const [dialogState, setDialogState] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [categoryChecked, setCategoryChecked] = useState <CategoryCheckModel> ({});
     let inputRef = useRef<HTMLInputElement | null>(null);
+    
+    console.log(categoryChecked);
+    
+    const handleCategoryCheck = (id) => (e) => {
+        console.log("clicked n pula mea")
+        setCategoryChecked({
+            ...categoryChecked,
+            [id]: !categoryChecked[id]
+        })
+    }
     
     const setField = (field: string) => (e) => {
         const newFields = {
@@ -43,43 +68,26 @@ const AddCourse =  (props: Props) => {
         setFields(newFields);
     }
     
-    const withFallback = async (action) => {
-        try {
-            await action()
-        } catch (e) {
-            // console.log(e);
-            console.log(e.message);
-            setSnackbar({
-                message: e.message,
-                type: "error"
-            })
-        }
-    }
-    
     const addCourse = async (e) => {
         e.preventDefault();
         setFormLoading(true);
         const model: AddCourseModel = {
             ...fields
         }
-        await withFallback(async () => {
+        await withFallback(setSnackbar, async () => {
             const course = await postCourse(model);
-            const categoryId = fields.category;
-            await assignCategory(course.id, categoryId);
+            const ids = categories.filter(it => categoryChecked[it.id]).map(it => it.id);
+            let tasks = ids.map(it => (assignCategory(course.id, it)));
+            await Promise.all(tasks);
             setSnackbar({message: "Course added!", type: "success"})
             props.history.push(`/add-lessons/${course.id}`)
         })
-        
-        setFormLoading(false);
     }
     
     const getData = async () => {
         let categories = await getCategories();
         setCategories(categories);
-        setFields({
-            ...fields,
-            category: categories[0].id
-        })
+        setFields(fields);
         console.log(categories);
     }
     
@@ -142,14 +150,8 @@ const AddCourse =  (props: Props) => {
                         <div className="row">
                             <div className="element first">
                                 <p className="label">Category</p>
-                                <select value={fields.category} onChange={setField("category")}>
-                                    {categories.map((it) => (
-                                        <option key={it.id} value={it.id}>{it.name}</option>
-                                    ))}
-                                </select>
-
+                                <input placeholder="Click to choose course categories" readOnly={true} type = "text" value={categories.filter(x => categoryChecked[x.id]).map(x => x.name).join(', ')} onClick={() => setDialogState(true)}/>
                             </div>
-
                             <div className="element">
                                 <p className="label">User Level</p>
                                 <select value={fields.userLevel} onChange={setField("userLevel")}>
@@ -167,6 +169,19 @@ const AddCourse =  (props: Props) => {
                         }
                     </form>
                 </section>
+                <Dialog scroll = "paper" open={dialogState} onClose={() => setDialogState(false)}>
+                    <DialogTitle>Select Categories</DialogTitle>
+                    <DialogContent style = {{width: "400px"}}>
+                        {categories.map(x => (
+                            <CategoryCheckBox onClick = {handleCategoryCheck(x.id)} key = {x.id} checked = {!!categoryChecked[x.id]} name = {x.name}/>
+                        ))}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setDialogState(false)} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </>
         
     );

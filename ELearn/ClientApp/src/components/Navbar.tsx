@@ -26,7 +26,9 @@ export default (props: Props) => {
 
             
             <div className = "nav_2">
-                <p>My Classes</p>
+                <Link to = "/my-classes">
+                    <p>My Classes</p>
+                </Link>
                 <Link to="/add-course">
                     <AddIcon className="notifications"/>
                 </Link>

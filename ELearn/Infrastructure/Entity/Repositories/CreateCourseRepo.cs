@@ -65,12 +65,13 @@ namespace ELearn.Infrastructure.Entity.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddLessons(Guid courseId, List<Lesson> lessons)
+        public async Task<IEnumerable<Lesson>> AddLessons(Guid courseId, List<Lesson> lessons)
         {
             List<Models.Lesson> l = lessons.Select(p => new Models.Lesson(p.Id, courseId, p.Title, p.VideoSrc, null)).ToList();
 
             await _context.Lessons.AddRangeAsync(l);
             await _context.SaveChangesAsync();
+            return lessons;
 
         }
 
@@ -83,6 +84,17 @@ namespace ELearn.Infrastructure.Entity.Repositories
             }
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Lesson?> UpdateLesson(Guid idx, string newName)
+        {
+            var lesson = await _context.Lessons.FirstOrDefaultAsync(it => it.Id == idx);
+            if (lesson == null) return null;
+            lesson.Title = newName;
+
+            await _context.SaveChangesAsync();
+            return lesson.ToModel();
+
         }
 
 

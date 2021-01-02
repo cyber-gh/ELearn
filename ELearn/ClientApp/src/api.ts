@@ -8,6 +8,11 @@ const getCoursesByCategory = async (category: string): Promise<CourseModel[]> =>
     return (await makeNetworkCall(url, [["name", category]], "GET", null)) as CourseModel[];
 }
 
+const getCourses = async (): Promise<CourseModel[]> => {
+    const url = "/api/courselist";
+    return (await makeNetworkCall(url, [], "GET", null)) as CourseModel[];
+}
+
 const getCategories = async () :Promise<Category[]> => {
     const url = "/api/categories/all";
     return (await makeNetworkCall(url, [], "GET", null)) as Category[];
@@ -32,6 +37,14 @@ const addLesson = async (courseId: string, title: string, videoSrc: string): Pro
         courseId: courseId,
         title: title,
         videoSrc: videoSrc
+    })) as LessonModel;
+}
+
+const updateLesson = async (lessonId: string, title: string): Promise<LessonModel> => {
+    const url = "api/createcourse/lesson"
+    return (await makeNetworkCall(url, [], "PUT", {
+        lessonId: lessonId,
+        title: title
     })) as LessonModel;
 }
 
@@ -64,4 +77,4 @@ const makeNetworkCall = async (url: string, params: [string, string][] = [], met
 
 
 
-export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory};
+export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory, updateLesson, getCourses};

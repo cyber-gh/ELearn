@@ -4,19 +4,27 @@ import ArrowRight from '@material-ui/icons/ArrowForwardIos';
 import ArrowLeft from '@material-ui/icons/ArrowBackIos';
 import {breakpoints} from "../utils";
 import { cpuUsage } from 'process';
+import {CourseModel} from "../interfaces";
+import CourseCard from "./CourseCard";
+import {getCoursesByCategory} from "../api";
 
 export interface Props {
-    [key: string]: any
+    category: string
 }
 
 
-const CourseCardCarousel = ({children}: Props) => {
+const CourseCardCarousel = ({category}: Props) => {
     const mainContainer = useRef <any> ();
     const slide = useRef <any> ();
     const [counter, setCounter] = useState(0);
     const [view, setView] = useState(4);
+    const [data, setData] = useState <CourseModel[]> ([]);
 
-
+    const getData = async () => {
+        let courses = await getCoursesByCategory(category);
+        setData(courses);
+    }
+    
     const handleResize = () => {
         const w = window.innerWidth;
         const {mobile, tablet, smallScreen, largeScreen} = breakpoints;
@@ -48,17 +56,21 @@ const CourseCardCarousel = ({children}: Props) => {
     }
 
     const right = () => {
-        if (counter == children.length - 1)
+        if (counter == data.length - 1)
             return;
         setCounter(counter + 1);
     }
+    
+    useEffect(() => {
+        getData();
+    }, [])
 
-    let data = children;
+    let displayData = data;
     if (view == 1){
-        data = data.slice(0, 4);
+        displayData = displayData.slice(0, 4);
     }
-    else if (data.length % view !== 0){
-        data = data.slice(0, Math.floor(data.length / view) * view)
+    else if (displayData.length % view !== 0){
+        displayData = displayData.slice(0, Math.floor(displayData.length / view) * view)
     }
 
 
@@ -69,14 +81,14 @@ const CourseCardCarousel = ({children}: Props) => {
             </IconButton>
             <div className="window">
                 <div className="content" style = {{transform: `translateX(${-counter * 100}%)`}}>
-                    {data.map((x, index) => (
+                    {displayData.map((x, index) => (
                         <div key = {index} className="item">
-                            {x}
+                            <CourseCard key = {index} {...x} edit = {false}/>
                         </div>
                     ))}
                 </div>
             </div>
-            <IconButton disabled = {(counter + 1) * view >= data.length - 1} onClick = {right} className = "arrow arrow-right">
+            <IconButton disabled = {(counter + 1) * view >= displayData.length - 1} onClick = {right} className = "arrow arrow-right">
                 <ArrowRight/>
             </IconButton>
         </section>

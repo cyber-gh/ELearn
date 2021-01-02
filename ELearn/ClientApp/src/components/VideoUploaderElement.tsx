@@ -1,9 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {generateRandomString} from "../utils";
+import {generateRandomString, withFallback} from "../utils";
 import {uploadFile} from "./FileUploader";
 import {LinearProgress} from "@material-ui/core";
 import {SnackbarContext} from "./AppSnackBar";
-import {addLesson, removeLesson} from "../api";
+import {addLesson, removeLesson, updateLesson} from "../api";
+import {CheckBox} from "@material-ui/icons";
 
 export interface LocalProps {
     rawVideo: File,
@@ -46,7 +47,7 @@ const LocalVideoUploaderElement = ({rawVideo, courseId, updateLessons}: LocalPro
     }, [])
 
     return (
-        <section className = "video-element">
+        <section className = "video-element loading">
             <div className="video">
                 <p className="percentage">
                     {loadingProgress.toFixed(1)}%
@@ -78,10 +79,27 @@ export interface RemoteProps {
 
 const RemoteVideoUploaderElement = ({courseId, updateLessons, title, videoSrc, id}: RemoteProps) => {
     const {setData: setSnackbar} = useContext(SnackbarContext);
+    const [value, setValue] = useState(title);
+    const [tempValue, setTempValue] = useState(value);
+    const [inputState, setInputState] = useState(false);
+    
+    const handleClick = async () => {
+        if (inputState) {
+            await withFallback(setSnackbar, async () => {
+                await updateLesson(id, tempValue);
+                setValue(tempValue);
+                setSnackbar({message: "Lesson title updated successfully", type: "success"});
+            });
+        }
+        setInputState(!inputState);
+    }
 
     const handleRemove = async () => {
-        await removeLesson(id);
-        await updateLessons();
+        await withFallback(setSnackbar, async () => {
+            await removeLesson(id);
+            await updateLessons();
+            setSnackbar({message: "Video Removed Successfully", type: "success"});
+        });
     }
 
     return (
@@ -90,10 +108,18 @@ const RemoteVideoUploaderElement = ({courseId, updateLessons, title, videoSrc, i
                 <video src = {videoSrc} />
             </div>
             <div className = "info">
-                <p className= "title">
-                    {title.split(".")[0]}
-                </p>
-                <button className="remove" onClick={handleRemove}>Remove Video</button>
+                {!inputState ? 
+                    <p onClick={handleClick} className="title">
+                        {value.split(".")[0]}
+                    </p> :
+                    <div className="info-input">
+                        <input value = {tempValue} onChange={e => {
+                            setTempValue(e.target.value)
+                        }} />
+                        <CheckBox className="checkbox" onClick={handleClick}/>
+                    </div>
+                }
+                <button className={"remove"} onClick={handleRemove}>Remove Video</button>
             </div>
         </section>
     );

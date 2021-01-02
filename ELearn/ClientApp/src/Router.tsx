@@ -8,6 +8,7 @@ import {RouteData} from "./interfaces";
 import AddCourseView from "./pages/AddCourseView";
 import {SnackbarProvider} from "./components/AppSnackBar"
 import AddLessonsView from "./pages/AddLessonsView";
+import UserCoursesView from "./pages/UserCoursesView";
 
 const CustomRoute = ({path, condition, redirect, component: Component}: RouteData) => {
 	if (condition) {
@@ -30,6 +31,7 @@ const App = () => {
 						<CustomRoute redirect = "/" path = "/course/:id" component = {CourseView}/> 
 						<CustomRoute path="/add-course" component={AddCourseView}/>
 						<CustomRoute path="/add-lessons/:id" component={AddLessonsView}/>
+						<CustomRoute path={"/my-classes"} component={UserCoursesView}/>
 					</Switch>
 				</section>
 				<Footer/>

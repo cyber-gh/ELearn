@@ -17,6 +17,18 @@ const generateRandomString = () => {
     return s1 + s2 + s3;
 }
 
+const withFallback = async (setSnackbar, action) => {
+    try {
+        await action()
+    } catch (e) {
+        console.log(e.message);
+        setSnackbar({
+            message: e.message,
+            type: "error"
+        })
+    }
+}
+
 const breakpoints = {
     mobile: 480,
     tablet: 768,
@@ -24,4 +36,4 @@ const breakpoints = {
     largeScreen: 1200,
 }
 
-export {cacheImages, generateRandomString, breakpoints}
+export {cacheImages, generateRandomString, breakpoints, withFallback}

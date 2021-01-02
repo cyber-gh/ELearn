@@ -9,6 +9,7 @@ export interface Props {
 }
 
 const Home = (props: Props) => {
+    
     return (
         <section className="home">
             <CourseSlider data = {courseSliderData} />
@@ -17,16 +18,7 @@ const Home = (props: Props) => {
                     <p className="title">
                         Featured On Fakeshare
                     </p>
-                    <CourseCardCarousel>
-                        <CourseCard {...course1} />
-                        <CourseCard {...course1} />
-                        <CourseCard {...course1} />
-                        <CourseCard {...course1} />
-                        <CourseCard {...course2} />
-                        <CourseCard {...course2} />
-                        <CourseCard {...course2} />
-                        <CourseCard {...course2} />
-                    </CourseCardCarousel>
+                    <CourseCardCarousel category = "recommended"/>
                 </div>
             </section>
             <section className="container">
@@ -34,16 +26,7 @@ const Home = (props: Props) => {
                     <p className="title">
                         Trending Now
                     </p>
-                    <CourseCardCarousel>
-                        <CourseCard {...course1} />
-                        <CourseCard {...course1} />
-                        <CourseCard {...course1} />
-                        <CourseCard {...course1} />
-                        <CourseCard {...course2} />
-                        <CourseCard {...course2} />
-                        <CourseCard {...course2} />
-                        <CourseCard {...course2} />
-                    </CourseCardCarousel>
+                    <CourseCardCarousel category = "recommended"/>
                 </div>
             </section>
         </section>

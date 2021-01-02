@@ -136,4 +136,10 @@
             justify-content: center;
         }
     }
+    @media (max-width: $tablet) {
+        margin: 0;
+        .row {
+            flex-direction: column;
+        }
+    }
 }

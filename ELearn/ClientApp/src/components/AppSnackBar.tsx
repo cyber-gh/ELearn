@@ -13,7 +13,6 @@ interface SnackbarMessage {
 
 export const SnackbarContext = React.createContext<any>(null);
 export const SnackbarProvider = ({ children, ...props }) => {
-
     const [data, setData] = useState<SnackbarMessage | null>(null);
     
     const closeSnackbar = () => {

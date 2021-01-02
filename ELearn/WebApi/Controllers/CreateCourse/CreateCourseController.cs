@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using ELearn.Application.Repositories;
 using ELearn.Domain;
+using ELearn.WebApi.Controllers.CreateCourse.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearn.WebApi.Controllers.CreateCourse
@@ -49,6 +50,19 @@ namespace ELearn.WebApi.Controllers.CreateCourse
 
             var lesson = new Lesson(Guid.NewGuid(), request.Title, request.VideoSrc, null);
             await _repo.AddLesson(request.CourseId, lesson);
+
+            return Ok(lesson);
+        }
+        
+        [HttpPut("lesson")]
+        public async Task<IActionResult> UpdateLesson([FromBody] UpdateLessonRequest request)
+        {
+            if (!TryValidateModel(request, nameof(request)))
+            {
+                return BadRequest("Invalid Form data");
+            }
+
+            var lesson = await _repo.UpdateLesson(request.LessonId, request.Title);
 
             return Ok(lesson);
         }
