@@ -20,7 +20,7 @@ namespace ELearn.Domain
         }
 
 
-        public CourseOverview Overview;
+        public CourseOverview Overview { get; set; }
 
         public Course()
         {
