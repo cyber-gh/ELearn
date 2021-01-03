@@ -67,8 +67,11 @@ namespace ELearn.Infrastructure.Entity.Repositories
 
         public async Task<IEnumerable<Lesson>> AddLessons(Guid courseId, List<Lesson> lessons)
         {
-            List<Models.Lesson> l = lessons.Select(p => new Models.Lesson(p.Id, courseId, p.Title, p.VideoSrc, null)).ToList();
-
+            List<Models.Lesson> l = lessons.Select(p => new Models.Lesson(p.Id, courseId, p.Title, p.VideoSrc, p.Duration, null)).ToList();
+            var duration = l.Sum(p => p.Duration);
+            var course = await _context.Courses.FirstOrDefaultAsync(p => p.Id == courseId);
+            course.Length += duration;
+            
             await _context.Lessons.AddRangeAsync(l);
             await _context.SaveChangesAsync();
             return lessons;
@@ -80,6 +83,8 @@ namespace ELearn.Infrastructure.Entity.Repositories
             var lesson = _context.Lessons.FirstOrDefault(p => p.Id == lessonId);
             if (lesson != null)
             {
+                var course = await _context.Courses.FirstOrDefaultAsync(p => p.Id == lesson.CourseId);
+                course.Length -= lesson.Duration;
                 _context.Lessons.Remove(lesson);
             }
 

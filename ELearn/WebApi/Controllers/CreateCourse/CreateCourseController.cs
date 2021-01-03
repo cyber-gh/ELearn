@@ -32,8 +32,7 @@ namespace ELearn.WebApi.Controllers.CreateCourse
                 return BadRequest("Invalid Form data");
             }
             
-            var model = new CourseOverview(Guid.NewGuid(), request.Title, request.PreviewImageUrl, request.Description,
-                request.Length, request.UserLevel);
+            var model = new CourseOverview(Guid.NewGuid(), request.Title, request.PreviewImageUrl, request.Description,0, request.UserLevel);
             
             
             var data = await _repo.Create(model);
@@ -48,7 +47,7 @@ namespace ELearn.WebApi.Controllers.CreateCourse
                 return BadRequest("Invalid Form data");
             }
 
-            var lesson = new Lesson(Guid.NewGuid(), request.Title, request.VideoSrc, null);
+            var lesson = new Lesson(Guid.NewGuid(), request.Title, request.VideoSrc, request.Duration, null);
             await _repo.AddLesson(request.CourseId, lesson);
 
             return Ok(lesson);

@@ -4,7 +4,7 @@ namespace ELearn.Domain
 {
     public sealed class Lesson : IEntity
     {
-        public Lesson(Guid id, string title, string videoSrc, Quiz? quiz)
+        public Lesson(Guid id, string title, string videoSrc,int duration, Quiz? quiz)
         {
             Id = id;
             Title = title;
@@ -15,6 +15,7 @@ namespace ELearn.Domain
         public Guid Id { get; private set; }
         public string Title { get; set; }
         public string VideoSrc { get; set; }
+        public int Duration { get; set; }
         public Quiz? Quiz { get; set; }
     }
 }
