@@ -9,6 +9,7 @@ namespace ELearn.Domain
             Id = id;
             Title = title;
             VideoSrc = videoSrc;
+            Duration = duration;
             Quiz = quiz;
         }
 
