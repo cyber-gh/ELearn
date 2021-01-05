@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using ELearn.Infrastructure.InMemory;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,9 +52,6 @@ namespace ELearn
                 o.SwaggerDoc("v1", new OpenApiInfo() {Title = "ELearning API", Version = "v1"});
             });
 
-            // services.AddScoped<ICourseListRepoReadOnly, CourseListRepo>();
-            // services.AddScoped<ICourseDetailsRepo, CourseListRepo>();
-            // services.AddScoped<ICreateCourseRepo, CourseListRepo>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
@@ -68,7 +66,6 @@ namespace ELearn
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             this.Configuration = builder.Build();
-            
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -97,6 +94,8 @@ namespace ELearn
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

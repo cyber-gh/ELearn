@@ -1,0 +1,114 @@
+@keyframes image-appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+
+.video-element {
+    background-color: white;
+    display: flex;
+    padding: 5px;
+    margin: 10px 0;
+    &.loading {
+        max-height: 100px;
+        .title {
+            margin-bottom: 5px;
+        }
+    }
+    .video {
+        margin: 5px;
+        background-color: $background_color;
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 22px;
+        .percentage {
+            font-weight: 600;
+            color: $color_1;
+            margin-bottom: 0;
+        }
+        .status {
+            margin-bottom: 5px;
+            font-size: 0.8em;
+        }
+        .progress {
+            width: 100%;
+        }
+    }
+    .preview {
+        display: flex;
+        max-height: 120px;
+        overflow: hidden;
+        width: 25%;
+        align-items: center;
+        video {
+            opacity: 0;
+            animation-name: image-appear;
+            animation-duration: 1s;
+            animation-delay: 0.5s;
+            animation-fill-mode: forwards;
+            border-radius: 8px;
+            width: 100%;
+        }
+    }
+    .info {
+        width: 75%;
+        font-size: 14px;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .title {
+            margin-top: 5px;
+        }
+        .subtitle {
+            font-size: 0.9em;
+            color: gray;
+        }
+        .remove {
+            margin-bottom: 10px;
+            width: 150px;
+            cursor: pointer;
+            padding: 5px 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            background-color: $color_1;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: 0.2s background-color, 0.2s margin-top, 0.2s color;
+            outline: none;
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+            &:active {
+                margin-top: 18px;
+            }
+        }
+        .info-input {
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            input {
+                font-size: 1.2em;
+                display: block;
+                border: 1px solid #dcdee1;
+                padding: 5px;
+                border-radius: 3px;
+                margin-bottom: 5px;
+            }
+            .checkbox {
+                color: $color_2;
+                margin-left: auto;
+                cursor: pointer;
+                text-align: right;
+                font-size: 2em;
+            }
+        }
+    }
+}

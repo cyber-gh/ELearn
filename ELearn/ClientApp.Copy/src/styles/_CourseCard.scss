@@ -1,0 +1,51 @@
+a{
+    color: black;
+    text-decoration: none;
+}
+.course-card{
+    height: 100%;
+    width: 100%;
+    font-size: 17px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 2px 0px rgba(117,117,117,1);
+}
+.course-content{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+}
+.separe{
+    color: rgb(63, 63, 63);
+    display: flex;
+    justify-content: space-between;
+}
+.course-card img{
+    width: 100%;
+    max-height: 50%;
+    z-index: -1;
+}
+.course-title{
+    font-size: 1.05em;
+    margin-bottom: 10px;
+}
+.separe_1{
+    margin-bottom: 5px;
+}
+.icon{
+    font-size: 35px !important;
+}
+.bookmark_active{
+    color: $color_3;
+}
+.edit-icon {
+    font-size: 30px !important;
+}
+.separe_2{
+    margin-top: 5px;
+}

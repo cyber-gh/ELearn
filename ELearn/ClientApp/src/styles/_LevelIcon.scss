@@ -1,0 +1,33 @@
+.levelIcon {
+    display: flex;
+    align-items: baseline;
+    div {
+        border: 1px solid black;
+        width: 5px;
+        border-radius: 2px;
+        margin: 0 1px;
+        &.a {
+            height: 10px;
+        }
+        &.b {
+            height: 15px;
+        }
+        &.c {
+            height: 20px;
+        }
+        &.active {
+            background-color: $color_3;
+        }
+        @media (max-width: $small-screen) {
+            &.a {
+                height: 5px;
+            }
+            &.b {
+                height: 10px;
+            }
+            &.c {
+                height: 15px;
+            }
+        }
+    }
+}

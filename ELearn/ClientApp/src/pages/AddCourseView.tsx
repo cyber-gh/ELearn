@@ -16,7 +16,7 @@ import {
 import {Alert} from "@material-ui/lab";
 import {cacheImages, generateRandomString, withFallback} from "../utils";
 import {SnackbarContext} from "../components/AppSnackBar";
-import {bucket, uploadFile} from "../components/FileUploader";
+import {bucket, uploadFile} from "../FileUploader";
 import {stringify} from "querystring";
 import CategoryCheckBox from "../components/CategoryCheckBox";
 
@@ -35,7 +35,6 @@ const defaultFields = {
     title: "",
     previewImageUrl: "",
     description: "",
-    length: 120,
     userLevel: userLevels[0]
 }
 

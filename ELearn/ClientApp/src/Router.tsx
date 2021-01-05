@@ -28,10 +28,10 @@ const App = () => {
 					<Switch>
 						<Redirect exact from = "/" to = "/home"/>
 						<CustomRoute path = "/home" component = {Home}/>
-						<CustomRoute redirect = "/" path = "/course/:id" component = {CourseView}/> 
-						<CustomRoute path="/add-course" component={AddCourseView}/>
-						<CustomRoute path="/add-lessons/:id" component={AddLessonsView}/>
-						<CustomRoute path={"/my-classes"} component={UserCoursesView}/>
+						<CustomRoute path = "/course/:id" component = {CourseView}/> 
+						<CustomRoute path = "/add-course" component={AddCourseView}/>
+						<CustomRoute path = "/add-lessons/:id" component={AddLessonsView}/>
+						<CustomRoute path = "/my-classes" component={UserCoursesView}/>
 					</Switch>
 				</section>
 				<Footer/>

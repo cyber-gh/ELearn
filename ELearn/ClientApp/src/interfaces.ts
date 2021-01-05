@@ -41,7 +41,6 @@ interface AddCourseModel {
     title: string,
     previewImageUrl: string | null,
     description: string,
-    length: number,
     userLevel: string
 }
 
@@ -49,7 +48,22 @@ interface LessonModel {
     id: string,
     title: string,
     videoSrc: string,
+    duration: number,
     quiz?: object
 }
 
-export type {CourseCardData, CourseSliderElement, RouteData, Category, CourseModel, AddCourseModel, LessonModel};
+interface CourseDetailsModel {
+    id: string,
+    overview: CourseModel,
+    lessons: LessonModel[],
+}
+
+interface ReviewModel {
+    username: string,
+    title: string,
+    description: string,
+    timeAdded: string,
+    recommend: "Begginer" | "Intermediate" | "Expert";
+}
+
+export type {CourseDetailsModel, CourseCardData, CourseSliderElement, RouteData, Category, CourseModel, AddCourseModel, LessonModel, ReviewModel};

@@ -1,4 +1,4 @@
-import { CourseCardData, CourseSliderElement } from "./interfaces";
+import { CourseCardData, CourseSliderElement, ReviewModel } from "./interfaces";
 
 const course1: CourseCardData = {
     author: "John Walker",
@@ -37,4 +37,28 @@ const courseSliderData: CourseSliderElement[] = [
     },
 ]
 
-export {course1, course2, courseSliderData};
+const reviews: ReviewModel[] = [
+    {
+        description: "I really love this course, I believe it is amazing and I trully recommend it for begginers",
+        recommend: "Begginer",
+        timeAdded: "Posted 4 months ago",
+        title: "Amazing course with amazing lessons",
+        username: "Johny par la p..."
+    },
+    {
+        description: "I really love this course, I believe it is amazing and I trully recommend it for intermediate",
+        recommend: "Intermediate",
+        timeAdded: "Posted 4 months ago",
+        title: "Amazing course with amazing lessons",
+        username: "Johny par la p..."
+    },
+    {
+        description: "I really love this course, I believe it is amazing and I trully recommend it for experts",
+        recommend: "Expert",
+        timeAdded: "Posted 4 months ago",
+        title: "Amazing course with amazing lessons",
+        username: "Johny par la p..."
+    }
+]
+
+export {course1, course2, courseSliderData, reviews};

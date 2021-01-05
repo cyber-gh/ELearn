@@ -1,7 +1,12 @@
-import {AddCourseModel, Category, CourseModel, LessonModel} from "./interfaces";
+import {AddCourseModel, Category, CourseDetailsModel, CourseModel, LessonModel} from "./interfaces";
 import {useEffect} from "react";
 
 type Method = "GET" | "POST" | "DELETE" | "PUT";
+
+const getCourseById = async (id: string): Promise<CourseDetailsModel> => {
+    const url = "api/coursedetails";
+    return (await makeNetworkCall(url, [["id", id]], "GET", null)) as CourseDetailsModel;
+}
 
 const getCoursesByCategory = async (category: string): Promise<CourseModel[]> => {
     const url = "/api/courselist/category";
@@ -26,17 +31,18 @@ const postCourse = async (data: AddCourseModel) : Promise<CourseModel> => {
 const assignCategory = async (courseId: string, categoryId: string): Promise<object> => {
     const url = "/api/createcourse/category"
     return (await makeNetworkCall(url, [], "POST", {
-        courseId: courseId,
-        categoryId: categoryId
+        courseId,
+        categoryId,
     })) 
 }
 
-const addLesson = async (courseId: string, title: string, videoSrc: string): Promise<LessonModel> => {
+const addLesson = async (courseId: string, title: string, videoSrc: string, duration: number): Promise<LessonModel> => {
     const url = "api/createcourse/lesson"
     return (await makeNetworkCall(url, [], "POST", {
-        courseId: courseId,
-        title: title,
-        videoSrc: videoSrc
+        courseId,
+        title,
+        videoSrc,
+        duration
     })) as LessonModel;
 }
 
@@ -77,4 +83,4 @@ const makeNetworkCall = async (url: string, params: [string, string][] = [], met
 
 
 
-export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory, updateLesson, getCourses};
+export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory, getCourseById, updateLesson, getCourses};

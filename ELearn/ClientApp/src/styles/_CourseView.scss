@@ -1,0 +1,214 @@
+@keyframes nav_el_hover {
+    from {
+        color: white;
+        border-bottom: 0px solid $color_3;
+    }
+    to {
+        color: $color_3;
+        border-bottom: 5px solid $color_3;
+    }
+}
+
+section.course {
+    position: relative;
+    top: -5px;
+    font-size: 30px;
+    .container {
+        background-color: $color_1;
+        padding: 25px;
+    }
+    .main {
+        margin: 0 auto;
+        max-width: $large-screen;
+        p {
+            color: white;
+        }
+        > .title {
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        > .author {
+            color: $color_4;
+            font-size: 0.55em;
+            margin-bottom: 15px;
+        }
+        .content {
+            display: flex;
+            .media {
+                width: 65%;
+                margin-right: 20px;
+                // background-color: rgb(70, 69, 69);
+                video {
+                    border-radius: 5px;
+                    width: 100%;
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+            .info {
+                width: 35%;
+                margin-left: 20px;
+                display: flex;
+                flex-direction: column;
+                .text {
+                    font-size: 0.8em;
+                    margin-bottom: 15px;
+                    margin-left: 10px;
+                }
+                .lesson {
+                    cursor: pointer;
+                    margin: 3px 0;
+                    padding: 10px;
+                    display: flex;
+                    justify-content: space-between;
+                    border-radius: 5px;
+                    font-size: 15px;
+                    font-weight: 400;
+                    width: 100%;
+                    border: 1px solid transparent;
+                    p {
+                        color: $color_4;
+                    }
+                    .duration {
+                        margin-left: 10px;
+                    }
+                    &:hover {
+                        border: 1px solid #9e9d9d;
+                        p {
+                            color: white;
+                        }
+                    }
+                    &.active {
+                        background-color: #394649;
+                        p {
+                            color: white;
+                        }
+                        &:hover {
+                            border: 1px solid transparent;
+                        }
+                    }
+                }
+            }
+            @media (max-width: 800px) {
+                align-items: center;
+                flex-direction: column;
+                .media, .info {
+                    width: 100%;
+                    margin: 20px;
+                }
+            }
+        }
+    }
+    .more {
+        .nav {
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid $color_4;
+            background-color: $background_color;
+            .content {
+                margin: 0 auto;
+                max-width: $small-screen;
+                display: flex;
+                font-size: 20px;
+                padding: 10px;
+                p {
+                    cursor: pointer;
+                    padding: 10px 10px 15px;
+                    margin: 0 5px;
+                    transition: 0.4s color, 0.1s border-bottom;
+                    border-bottom: 0px solid $color_3;
+                    &.active, &:hover {
+                        border-bottom: 3px solid $color_3;
+                        color: $color_3;
+                    }
+                }
+                @media (max-width: $tablet) {
+                    font-size: 15px;
+                }
+            }
+        }
+        .about {
+            max-width: $large-screen;
+            margin: 0 auto;
+            padding: 25px 15px 15px;
+            font-size: 24px;
+            .title {
+                font-size: 1.5em;
+                font-weight: 600;
+                color: $color_1;
+                margin-bottom: 20px;
+            }
+            .description {
+                font-size: 0.8em;
+            }
+        }
+        .reviews {
+            max-width: $large-screen;
+            margin: 0 auto;
+            .element {
+                border-radius: 8px;
+                display: flex;
+                justify-content: space-between;
+                font-size: 22px;
+                margin: 15px;
+                background-color: $background_color;
+                padding: 15px;
+                p.username {
+                    min-width: 30%;
+                }
+                .info {
+                    .top {
+                        display: flex;
+                        justify-content: space-between;
+                        padding-bottom: 10px;
+                        margin-bottom: 10px;
+                        border-bottom: 1px solid $color_4;
+                        .title {
+                            padding-right: 15px;
+                            font-weight: 600;
+                            color: $color_1;
+                        }
+                        .recommend {
+                            flex-shrink: 0;
+                            display: flex;
+                            align-items: baseline;
+                            p {
+                                font-size: 0.7em;
+                            }
+                            .levelIcon {
+                                margin-right: 10px;
+                            }
+                        }
+                    }
+                    .description {
+                        font-weight: 300;
+                        margin-bottom: 10px;
+                    }
+                    .time-added {
+                        text-align: right;
+                        font-size: 0.7em;
+                        color: $color_1;
+                    }
+                }
+                @media (max-width: $small-screen) {
+                    flex-direction: column;
+                    font-size: 19px;
+                    .username {
+                        margin-bottom: 15px;
+                    }
+                }
+                @media (max-width: $tablet) {
+                    font-size: 17px;
+                    .top {
+                        flex-direction: column;
+                        .title {
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

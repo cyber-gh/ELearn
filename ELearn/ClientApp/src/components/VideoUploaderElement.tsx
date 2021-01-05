@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {generateRandomString, withFallback} from "../utils";
-import {uploadFile} from "./FileUploader";
+import {uploadFile} from "../FileUploader";
 import {LinearProgress} from "@material-ui/core";
 import {SnackbarContext} from "./AppSnackBar";
 import {addLesson, removeLesson, updateLesson} from "../api";
 import {CheckBox} from "@material-ui/icons";
+import { useRef } from 'react';
 
 export interface LocalProps {
     rawVideo: File,
@@ -18,6 +19,7 @@ const LocalVideoUploaderElement = ({rawVideo, courseId, updateLessons}: LocalPro
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [location, setLocation] = useState("");
     const [lessonId, setLessonId] = useState <null | string> (null)
+    const videoRef = useRef <HTMLVideoElement | null> (null);
 
     const handleRemove = async () => {
         await removeLesson(lessonId!);
@@ -25,7 +27,7 @@ const LocalVideoUploaderElement = ({rawVideo, courseId, updateLessons}: LocalPro
     }
 
     const uploadVideo = async () => {
-        setLoading(true)
+        setLoading(true);
         const name = generateRandomString();
         let blob = rawVideo!.slice(0, rawVideo!.size, 'video/*');
         let extension = rawVideo!.name.split(".").slice(-1)[0];
@@ -34,7 +36,7 @@ const LocalVideoUploaderElement = ({rawVideo, courseId, updateLessons}: LocalPro
         let location = await uploadFile(renamedFile, (progress) => {
             setLoadingProgress(progress);
         })
-        let {id} = await addLesson(courseId, rawVideo!.name.split(".")[0], location);
+        let {id} = await addLesson(courseId, rawVideo!.name.split(".")[0], location, Math.floor(videoRef.current!.duration));
         setLessonId(id);
         setLocation(location);
         setSnackbar({message: "Video uploaded successfully!", type: "success"});
@@ -47,25 +49,28 @@ const LocalVideoUploaderElement = ({rawVideo, courseId, updateLessons}: LocalPro
     }, [])
 
     return (
-        <section className = "video-element loading">
-            <div className="video">
-                <p className="percentage">
-                    {loadingProgress.toFixed(1)}%
-                </p>
-                <p className="status">
-                    {loading && "Uploading ..."}
-                </p>
-                <LinearProgress variant="determinate" className="progress" value={loadingProgress}/>
-            </div> 
-            <div className = "info">
-                <p className= "title">
-                    {rawVideo.name.split(".")[0]}
-                </p>
-                <p className="subtitle">
-                    Uploading: {rawVideo.name}
-                </p>
-            </div>
-        </section>
+        <>
+            <video ref = {videoRef} src={URL.createObjectURL(rawVideo)} style = {{display: "none"}}/>
+            <section className = "video-element loading">
+                <div className="video">
+                    <p className="percentage">
+                        {loadingProgress.toFixed(1)}%
+                    </p>
+                    <p className="status">
+                        {loading && "Uploading ..."}
+                    </p>
+                    <LinearProgress variant="determinate" className="progress" value={loadingProgress}/>
+                </div> 
+                <div className = "info">
+                    <p className= "title">
+                        {rawVideo.name.split(".")[0]}
+                    </p>
+                    <p className="subtitle">
+                        Uploading: {rawVideo.name}
+                    </p>
+                </div>
+            </section>
+        </>
     );
 }
 

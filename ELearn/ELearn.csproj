@@ -13,11 +13,14 @@
     <ItemGroup>
         <PackageReference Include="Autofac" Version="6.1.0" />
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+        <PackageReference Include="DotNetOpenAuth.OpenId.Core" Version="5.0.0-alpha3" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0" />
+        <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.8.0" />
         <PackageReference Include="Swashbuckle" Version="5.6.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
@@ -41,6 +44,9 @@
       <_ContentIncludedByDefault Remove="WebApi\Pages\Error.cshtml" />
       <_ContentIncludedByDefault Remove="WebApi\Pages\Shared\_LoginPartial.cshtml" />
       <_ContentIncludedByDefault Remove="WebApi\Pages\_ViewImports.cshtml" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="WebApi\Controllers\Auth" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

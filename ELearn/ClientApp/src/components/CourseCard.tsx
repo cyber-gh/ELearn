@@ -26,7 +26,7 @@ export default ({previewImageUrl, id, length, title, edit}: Props) => {
                         6969 students
                     </p>
                     <p>
-                        {length / 60} minutes
+                        {Math.floor(length / 60)} minutes
                     </p>
                 </div>
                 <p className = "course-title">{title}</p>

@@ -1,0 +1,69 @@
+.add-lessons {
+    font-size: 22px;
+    width: 100%;
+    max-width: $tablet;
+    background-color: white;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    .title, .description {
+        margin-bottom: 20px;
+    }
+    hr {
+        height: 1px;
+        width: 100%;
+        background-color: #dcdee1;
+        border: none;
+    }
+    .title {
+        color: $color_1;
+        font-size: 1.1em;
+        font-weight: 700;
+    }
+    .description {
+        font-size: 0.7em;
+        font-weight: 500;
+    }
+    .uploader {
+        background-color: $background_color;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        .videos {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            .empty {
+                text-align: center;
+                margin-top: 70px;
+                font-weight: 500;
+                color: $color_1;
+            }
+        }
+        .upload {
+            cursor: pointer;
+            padding: 5px 10px;
+            border: 1px solid $color_1;
+            color: $color_1;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 15px;
+            transition: 0.2s background-color, 0.2s margin-top, 0.2s color;
+            outline: none;
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+            &:active {
+                margin-top: 18px;
+            }
+        }
+    }
+    input {
+        display: none;
+    }
+    
+}

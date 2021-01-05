@@ -35,7 +35,7 @@
     }
     hr {
         height: 1px;
-        background-color: #dcdee1;
+        background-color: $color_4;
         border: none;
     }
     .title, .description {
@@ -101,7 +101,7 @@
             input, textarea, select {
                 height: 40px;
                 padding-left: 15px;
-                border: 1px solid #DCDEE1;
+                border: 1px solid $color_4;
                 border-radius: 3px;
                 font-size: 0.8em;
                 &:focus {
