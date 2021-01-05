@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from "./components/Navbar";
-import {HashRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {HashRouter as Router, Route, Switch, Redirect, BrowserRouter} from "react-router-dom";
+// import { Router, Route, Switch, Redirect} from "react-router-dom";
+import { Container } from 'reactstrap';
 import Home from "./pages/HomeView";
 import Footer from './components/Footer';
 import CourseView from './pages/CourseView';
@@ -9,6 +11,10 @@ import AddCourseView from "./pages/AddCourseView";
 import {SnackbarProvider} from "./components/AppSnackBar"
 import AddLessonsView from "./pages/AddLessonsView";
 import UserCoursesView from "./pages/UserCoursesView";
+import {Login} from "./components/api-authorization/Login";
+import {ApplicationPaths} from "./components/api-authorization/ApiAuthorizationConstants";
+import ApiAuthorizationRoutes from "./components/api-authorization/ApiAuthorizationRoutes";
+import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 
 const CustomRoute = ({path, condition, redirect, component: Component}: RouteData) => {
 	if (condition) {
@@ -21,22 +27,26 @@ const CustomRoute = ({path, condition, redirect, component: Component}: RouteDat
 
 const App = () => {
 	return(
-		<SnackbarProvider>
-			<Router>
-				<Navbar/>
-				<section className="main-window-container">
-					<Switch>
-						<Redirect exact from = "/" to = "/home"/>
-						<CustomRoute path = "/home" component = {Home}/>
-						<CustomRoute path = "/course/:id" component = {CourseView}/> 
-						<CustomRoute path = "/add-course" component={AddCourseView}/>
-						<CustomRoute path = "/add-lessons/:id" component={AddLessonsView}/>
-						<CustomRoute path = "/my-classes" component={UserCoursesView}/>
-					</Switch>
-				</section>
-				<Footer/>
-			</Router>
-		</SnackbarProvider>
+
+		<BrowserRouter basename="/">
+			<SnackbarProvider>
+			{/*<Router>*/}
+			<Navbar/>
+			<section className="main-window-container">
+				<Switch>
+					{/*<Redirect exact from = "/" to = "/home"/>*/}
+					<Route exact path="/" component={Home}/>
+					<Route path="/course/:id" component={CourseView}/>
+					<Route path="/add-course" component={AddCourseView}/>
+					<Route path="/add-lessons/:id" component={AddLessonsView}/>
+					<Route path="/my-classes" component={UserCoursesView}/>
+					<Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
+				</Switch>
+			</section>
+			<Footer/>
+			{/*</Router>*/}
+			</SnackbarProvider>
+		</BrowserRouter>
 	)
 }
 

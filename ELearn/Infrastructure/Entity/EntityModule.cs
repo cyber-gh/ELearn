@@ -6,9 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ELearn.Infrastructure.Entity
 {
-    public class Module: Autofac.Module
+    public class EntityModule: Autofac.Module
     {
-        public string ConnectionString = "DataSource=app.db;Cache=Shared";
+        // public string ConnectionString = "DataSource=app.db;Cache=Shared";
+        public EntityModule(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
+
+        public string ConnectionString { get; set; }
 
         protected override void Load(ContainerBuilder builder)
         {

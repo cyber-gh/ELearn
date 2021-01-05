@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using ELearn.Application.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearn.WebApi.Controllers.CourseDetails
@@ -9,6 +10,7 @@ namespace ELearn.WebApi.Controllers.CourseDetails
     
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize()]
     public class CourseDetailsController : Controller
     {
 

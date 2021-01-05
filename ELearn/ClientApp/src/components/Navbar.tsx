@@ -2,6 +2,7 @@ import React from 'react'
 import {NotificationsNone as Bell, Search} from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
+import {LoginMenu} from "./api-authorization/LoginMenu";
 
 export interface Props {
     [key: string]: any
@@ -24,6 +25,9 @@ export default (props: Props) => {
 
 
 
+
+            <LoginMenu>
+            </LoginMenu>
             
             <div className = "nav_2">
                 <Link to = "/my-classes">

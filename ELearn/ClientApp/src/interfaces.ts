@@ -16,7 +16,7 @@ interface CourseCardData {
 
 interface RouteData {
     path: string,
-    component: (params: any) => JSX.Element,
+    component: any,
     condition?: boolean,
     redirect?: string,
     props?: object

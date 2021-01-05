@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json.Serialization;
 using Autofac;
 using ELearn.Application.Repositories;
@@ -36,11 +37,20 @@ namespace ELearn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddDbContext<EntityContext>(options =>
-            //     options.UseSqlite(
-            //         Configuration.GetConnectionString("DefaultConnection")));
 
             // services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddDbContext<AuthContext>(options =>
+            {
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<AuthContext>();
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, AuthContext>();
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+            
 
             services.AddControllers().AddJsonOptions(opt =>
             {
@@ -93,6 +103,7 @@ namespace ELearn
             app.UseRouting();
 
             app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseAuthorization();
             
             
@@ -117,9 +128,13 @@ namespace ELearn
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyModules(typeof(Startup).Assembly);
+            // builder.RegisterAssemblyModules(typeof(Startup).Assembly);
             // builder.RegisterModule<ELearn.Infrastructure.InMemory.Module>();
-            builder.RegisterModule<ELearn.Infrastructure.Entity.Module>();
+            var str = Configuration.GetConnectionString("DefaultConnection")!;
+            Console.WriteLine("string is " + str);
+            builder.RegisterModule(new EntityModule(str));
+
+
         }
     }
     

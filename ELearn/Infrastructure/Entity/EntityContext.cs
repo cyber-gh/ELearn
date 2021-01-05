@@ -2,6 +2,8 @@ using ELearn.Infrastructure.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+
 namespace ELearn.Infrastructure.Entity
 {
     public class EntityContext: DbContext

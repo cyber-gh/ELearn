@@ -1,10 +1,11 @@
 import {AddCourseModel, Category, CourseDetailsModel, CourseModel, LessonModel} from "./interfaces";
 import {useEffect} from "react";
+import authService from "./components/api-authorization/AuthorizeService";
 
 type Method = "GET" | "POST" | "DELETE" | "PUT";
 
 const getCourseById = async (id: string): Promise<CourseDetailsModel> => {
-    const url = "api/coursedetails";
+    const url = "/api/coursedetails";
     return (await makeNetworkCall(url, [["id", id]], "GET", null)) as CourseDetailsModel;
 }
 
@@ -64,12 +65,20 @@ const removeLesson = async (lessonId: string): Promise <object> => {
     return (await makeNetworkCall(url, [["lessonId", lessonId]], "DELETE", null));
 }
 
+const baseUrl = window.location.origin;
 const makeNetworkCall = async (url: string, params: [string, string][] = [], method: Method = "GET", data: any | null = null): Promise<object> => {
-    const link = `${url}?${params.map(it => it[0] + '=' + it[1]).join(",")}`
+    const link = `${baseUrl}${url}?${params.map(it => it[0] + '=' + it[1]).join(",")}`
+    const token = await authService.getAccessToken();
+    console.log("login token is", token);
     const options = {
         method: method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json'
+        },
         body: data === null ? undefined : JSON.stringify(data)
+    }
+    if (token) {
+        options.headers['Authorization'] = `Bearer ${token}`;
     }
     const response = await fetch(link, options);
     const raw = await response.text();
