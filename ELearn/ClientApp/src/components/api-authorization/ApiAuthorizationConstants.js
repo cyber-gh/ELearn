@@ -21,9 +21,11 @@ export const LoginActions = {
 
 const prefix = '/authentication';
 
-export const ApplicationPaths = {
-  DefaultLoginRedirectPath: '/',
-  ApiAuthorizationClientConfigurationUrl: `_configuration/${ApplicationName}`,
+const baseURL = window.location.origin;
+
+let ApplicationPaths = {
+  DefaultLoginRedirectPath: baseURL,
+  ApiAuthorizationClientConfigurationUrl: `${baseURL}/_configuration/${ApplicationName}`,
   ApiAuthorizationPrefix: prefix,
   Login: `${prefix}/${LoginActions.Login}`,
   LoginFailed: `${prefix}/${LoginActions.LoginFailed}`,
@@ -36,3 +38,7 @@ export const ApplicationPaths = {
   IdentityRegisterPath: 'Identity/Account/Register',
   IdentityManagePath: 'Identity/Account/Manage'
 };
+// Object.keys(ApplicationPaths).map(function(key, index) {
+//   ApplicationPaths[key] = `${baseURL}/${ApplicationPaths[key]}`;
+// });
+export {ApplicationPaths}

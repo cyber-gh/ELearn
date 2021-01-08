@@ -6,7 +6,7 @@ namespace ELearn.Domain
 {
     public sealed class CourseOverview: IEntity
     {
-        public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, IEnumerable<Category> categories)
+        public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, IEnumerable<Category> categories, AppUser appUser)
         {
             Id = id;
             Title = title;
@@ -15,9 +15,10 @@ namespace ELearn.Domain
             Length = length;
             UserLevel = userLevel;
             Categories = categories;
+            AppUser = appUser;
         }
 
-        public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel)
+        public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, AppUser appUser)
         {
             Id = id;
             Title = title;
@@ -25,6 +26,7 @@ namespace ELearn.Domain
             Description = description;
             Length = length;
             UserLevel = userLevel;
+            AppUser = appUser;
             Categories = new List<Category>();
         }
 
@@ -34,6 +36,7 @@ namespace ELearn.Domain
         public String Description { get; set; }
         public int Length { get; set; } //seconds total
         public UserLevel UserLevel { get; set; }
+        public AppUser AppUser { get; set; }
         public IEnumerable<Category> Categories { get; set; }
     }
 }

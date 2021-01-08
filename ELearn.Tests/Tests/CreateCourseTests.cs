@@ -28,7 +28,7 @@ namespace Tests
         public async Task CreatesNewCourseSavesToDb()
         {
             var mockRepo = new Mock<ICreateCourseRepo>();
-            var request = new CreateCourseRequest("This is a course", "https://www.google.com", "Most awesome course ever", 120, UserLevel.Beginner);
+            var request = new CreateCourseRequest("This is a course", "https://www.google.com", "Most awesome course ever", UserLevel.Beginner);
             var model = new CourseOverview(Guid.Empty, "", "", "", 2, UserLevel.Beginner, null);
 
             mockRepo.Setup(p => p.Create(It.IsAny<CourseOverview>())).ReturnsAsync(model);

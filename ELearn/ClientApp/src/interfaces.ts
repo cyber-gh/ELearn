@@ -63,7 +63,7 @@ interface ReviewModel {
     title: string,
     description: string,
     timeAdded: string,
-    recommend: "Begginer" | "Intermediate" | "Expert";
+    recommend: "Beginner" | "Intermediate" | "Expert";
 }
 
 export type {CourseDetailsModel, CourseCardData, CourseSliderElement, RouteData, Category, CourseModel, AddCourseModel, LessonModel, ReviewModel};

@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using ELearn.Application.Repositories;
 using ELearn.Domain;
 using ELearn.WebApi.Controllers.CreateCourse.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearn.WebApi.Controllers.CreateCourse
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CreateCourseController : Controller
     {
 
@@ -32,7 +34,7 @@ namespace ELearn.WebApi.Controllers.CreateCourse
                 return BadRequest("Invalid Form data");
             }
             
-            var model = new CourseOverview(Guid.NewGuid(), request.Title, request.PreviewImageUrl, request.Description,0, request.UserLevel);
+            var model = new CourseOverview(Guid.NewGuid(), request.Title, request.PreviewImageUrl, request.Description,0, request.UserLevel, new AppUser());
             
             
             var data = await _repo.Create(model);

@@ -26,7 +26,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
 
         public async Task<CourseOverview> Create(CourseOverview overview)
         {
-            var course = new Models.Course(Guid.NewGuid(), overview.Title, overview.PreviewImageUrl, overview.Description, overview.Length, overview.UserLevel, null);
+            var course = new Models.Course(Guid.NewGuid(), overview.Title, overview.PreviewImageUrl, overview.Description, overview.Length, overview.UserLevel, new Guid());
 
             await _context.Courses.AddAsync(course);
             await _context.SaveChangesAsync();

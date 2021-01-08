@@ -31,8 +31,8 @@ const Reviews = (courseId) => {
     // }, [])
     return (
         <div className="reviews">
-            {data.map(x => (
-                <div className="element">
+            {data.map((x,index) => (
+                <div key={index} className="element">
                     <p className="username">From: {x.username}</p>
                     <div className = "info">
                         <div className = "top">
@@ -95,7 +95,7 @@ const CourseView = ({match: {params: {id}}}: Props) => {
                                 {data.lessons.length} Lessons
                             </p>
                             {data.lessons.map((x, index) => (
-                                <div onClick = {changeCurrentLesson(index)} className={`lesson ${currentLesson === index ? "active": ""}`}>
+                                <div key={x.id} onClick = {changeCurrentLesson(index)} className={`lesson ${currentLesson === index ? "active": ""}`}>
                                     <p className="title">
                                         {index+1}. {x.title}
                                     </p>

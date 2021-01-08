@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {Component, useContext, useEffect, useState} from 'react';
 import Navbar from "./components/Navbar";
-import {HashRouter as Router, Route, Switch, Redirect, BrowserRouter} from "react-router-dom";
+import {HashRouter as Router, Route, Switch, Redirect, BrowserRouter, HashRouter} from "react-router-dom";
 // import { Router, Route, Switch, Redirect} from "react-router-dom";
 import { Container } from 'reactstrap';
 import Home from "./pages/HomeView";
@@ -12,41 +12,54 @@ import {SnackbarProvider} from "./components/AppSnackBar"
 import AddLessonsView from "./pages/AddLessonsView";
 import UserCoursesView from "./pages/UserCoursesView";
 import {Login} from "./components/api-authorization/Login";
-import {ApplicationPaths} from "./components/api-authorization/ApiAuthorizationConstants";
+import {ApplicationPaths, QueryParameterNames} from "./components/api-authorization/ApiAuthorizationConstants";
 import ApiAuthorizationRoutes from "./components/api-authorization/ApiAuthorizationRoutes";
 import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
+import authService from "./components/api-authorization/AuthorizeService";
+import {AuthContext, AuthProvider} from "./components/AuthProvider";
 
-const CustomRoute = ({path, condition, redirect, component: Component}: RouteData) => {
-	if (condition) {
-		return <Redirect exact from = {path} to = {redirect as string}/>
+const CustomRoute = ({path, condition, component: Component}: RouteData) => {
+	if (!condition) {
+		const returnUrl = window.location.href;
+		const redirectUrl = `${ApplicationPaths.Login}?${QueryParameterNames.ReturnUrl}=${encodeURIComponent(returnUrl)}`
+		// const redirectUrl = `${ApplicationPaths.Login}`
+		return <Redirect exact from = {path} to = {redirectUrl}/>
 	}
 	return (
 		<Route exact path = {path} render = {(props) => <Component {...props}/>}/>
 	)
 }
 
-const App = () => {
-	return(
 
-		<BrowserRouter basename="/">
-			<SnackbarProvider>
-			{/*<Router>*/}
-			<Navbar/>
-			<section className="main-window-container">
-				<Switch>
-					{/*<Redirect exact from = "/" to = "/home"/>*/}
-					<Route exact path="/" component={Home}/>
-					<Route path="/course/:id" component={CourseView}/>
-					<Route path="/add-course" component={AddCourseView}/>
-					<Route path="/add-lessons/:id" component={AddLessonsView}/>
-					<Route path="/my-classes" component={UserCoursesView}/>
-					<Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
-				</Switch>
-			</section>
-			<Footer/>
-			{/*</Router>*/}
-			</SnackbarProvider>
-		</BrowserRouter>
+
+const App = () => {
+	const authData = useContext(AuthContext);
+	
+	
+	return(
+		<AuthProvider>
+			<BrowserRouter>
+				
+					<SnackbarProvider>
+						{/*<Router>*/}
+						<Navbar/>
+						<section className="main-window-container">
+							<Switch>
+								{/*<Redirect exact from = "/" to = "/home"/>*/}
+								<Route exact path="/" component={Home}/>
+								<CustomRoute path="/course/:id" condition={authData.authenticated} component={CourseView}/>
+								<CustomRoute path="/add-course" condition={authData.authenticated} component={AddCourseView}/>
+								<CustomRoute path="/add-lessons/:id" condition={authData.authenticated} component={AddLessonsView}/>
+								<CustomRoute path="/my-classes" condition={authData.authenticated} component={UserCoursesView}/>
+								<Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
+							</Switch>
+						</section>
+						<Footer/>
+						{/*</Router>*/}
+					</SnackbarProvider>
+				
+			</BrowserRouter>
+		</AuthProvider>
 	)
 }
 

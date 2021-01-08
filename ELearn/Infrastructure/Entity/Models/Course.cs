@@ -8,7 +8,7 @@ namespace ELearn.Infrastructure.Entity.Models
 {
     public sealed class Course
     {
-        public Course(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, ICollection<Category> categories)
+        public Course(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, ICollection<Category> categories, Guid authorId)
         {
             Id = id;
             Title = title;
@@ -17,9 +17,10 @@ namespace ELearn.Infrastructure.Entity.Models
             Length = length;
             UserLevel = userLevel;
             Categories = categories;
+            AuthorId = authorId;
         }
 
-        public Course(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel)
+        public Course(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, Guid authorId)
         {
             Id = id;
             Title = title;
@@ -27,6 +28,7 @@ namespace ELearn.Infrastructure.Entity.Models
             Description = description;
             Length = length;
             UserLevel = userLevel;
+            AuthorId = authorId;
             Categories = new List<Category>();
         }
 
@@ -41,6 +43,7 @@ namespace ELearn.Infrastructure.Entity.Models
         public String Description { get; set; }
         public int Length { get; set; } //seconds total
         public UserLevel UserLevel { get; set; }
+        public Guid AuthorId { get; set; }
         public ICollection<Category> Categories { get; set; }
 
         public Domain.CourseOverview ToModel()
@@ -62,7 +65,8 @@ namespace ELearn.Infrastructure.Entity.Models
                 Description,
                 Length,
                 UserLevel,
-                categories
+                categories,
+                new AppUser()
             );
         }
     }

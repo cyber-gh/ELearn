@@ -26,13 +26,13 @@ namespace Tests
         {
             var list = new List<CourseOverview>();
             const string link = "https://spin.atomicobject.com/wp-content/uploads/research.jpg";
-            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "This is another test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "Interesting test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "Special Feature", link, "Test Description", 120, UserLevel.Beginner ));
-            list.Add(new CourseOverview(Guid.NewGuid(), "Azkaban", link, "Test Description", 120, UserLevel.Beginner ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner, new AppUser() ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "This is another test", link, "Test Description", 120, UserLevel.Beginner,new AppUser() ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "Interesting test", link, "Test Description", 120, UserLevel.Beginner,new AppUser() ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner,new AppUser() ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "This is a test", link, "Test Description", 120, UserLevel.Beginner,new AppUser() ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "Special Feature", link, "Test Description", 120, UserLevel.Beginner,new AppUser() ));
+            list.Add(new CourseOverview(Guid.NewGuid(), "Azkaban", link, "Test Description", 120, UserLevel.Beginner,new AppUser() ));
 
             return list;
         }
