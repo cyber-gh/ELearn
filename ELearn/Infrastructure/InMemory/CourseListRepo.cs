@@ -67,6 +67,11 @@ namespace ELearn.Infrastructure.InMemory
             return overview;
         }
 
+        public Task<CourseOverview> Create(CourseOverview overview, Guid authorId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AssignCategory(Guid courseId, Guid categoryId)
         {
             throw new NotImplementedException();

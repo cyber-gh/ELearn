@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Login } from './Login'
 import { Logout } from './Logout'
 import { ApplicationPaths, LoginActions, LogoutActions } from './ApiAuthorizationConstants';
+import {Redirect} from "react-router-dom";
 
 export default class ApiAuthorizationRoutes extends Component {
 
@@ -16,7 +17,7 @@ export default class ApiAuthorizationRoutes extends Component {
           <Route path={ApplicationPaths.Register} render={() => loginAction(LoginActions.Register)} />
           <Route path={ApplicationPaths.LogOut} render={() => logoutAction(LogoutActions.Logout)} />
           <Route path={ApplicationPaths.LogOutCallback} render={() => logoutAction(LogoutActions.LogoutCallback)} />
-          <Route path={ApplicationPaths.LoggedOut} render={() => logoutAction(LogoutActions.LoggedOut)} />
+          <Redirect from={ApplicationPaths.LoggedOut} to="/" />
       </Fragment>);
   }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ELearn.WebApi.Controllers.CreateCourse
+namespace ELearn.WebApi.Controllers.CreateCourse.Models
 {
     public class AddLessonRequest
     {

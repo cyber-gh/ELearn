@@ -1,7 +1,4 @@
-a{
-    color: black;
-    text-decoration: none;
-}
+
 .course-card{
     height: 100%;
     width: 100%;
@@ -12,6 +9,10 @@ a{
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 0px 2px 0px rgba(117,117,117,1);
+    a{
+        color: black;
+        text-decoration: none;
+    }
 }
 .course-content{
     height: 100%;

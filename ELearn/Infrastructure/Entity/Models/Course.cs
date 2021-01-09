@@ -45,7 +45,6 @@ namespace ELearn.Infrastructure.Entity.Models
         public UserLevel UserLevel { get; set; }
         public Guid AuthorId { get; set; }
         public ICollection<Category> Categories { get; set; }
-
         public Domain.CourseOverview ToModel()
         {
             //var category = Category == null ? null : new Domain.Category(Category.Id, Category.Name);

@@ -8,7 +8,7 @@ namespace ELearn.Application.Repositories
 {
     public interface ICreateCourseRepo
     {
-        Task<CourseOverview> Create(CourseOverview overview);
+        Task<CourseOverview> Create(CourseOverview overview, Guid authorId);
 
         Task AssignCategory(Guid courseId, Guid categoryId);
         Task UnassignCategory(Guid courseId, Guid categoryId);

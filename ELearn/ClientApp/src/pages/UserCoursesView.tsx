@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {CourseModel} from "../interfaces";
-import {getCourses} from "../api";
+import {getCourses, getMyCourses} from "../api";
 import {Link} from "react-router-dom";
 import CourseCard from "../components/CourseCard";
 
@@ -12,7 +12,7 @@ const UserCoursesView = (props: Props) => {
     const [data, setData] = useState <CourseModel[]> ([]);
 
     const getData = async () => {
-        let courses = await getCourses();
+        let courses = await getMyCourses();
         setData(courses);
     }
     

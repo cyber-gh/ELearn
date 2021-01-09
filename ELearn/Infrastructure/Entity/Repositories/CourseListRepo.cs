@@ -6,6 +6,7 @@ using ELearn.Application.Repositories;
 using ELearn.Domain;
 using Microsoft.EntityFrameworkCore;
 using StringExtensionMethods;
+using Course = ELearn.Infrastructure.Entity.Models.Course;
 
 namespace ELearn.Infrastructure.Entity.Repositories
 {
@@ -13,10 +14,20 @@ namespace ELearn.Infrastructure.Entity.Repositories
     {
 
         private readonly EntityContext _context;
+        private readonly AuthContext _authContext;
 
-        public CourseListRepo(EntityContext context)
+        public CourseListRepo(EntityContext context, AuthContext authContext)
         {
             _context = context;
+            _authContext = authContext;
+        }
+
+        private CourseOverview WithAuthor(Course model)
+        {
+            var tmp = model.ToModel();
+            var user = _authContext.Users.FirstOrDefault(it => it.Id == model.AuthorId.ToString());
+            tmp.AppUser = user?.ToModel() ?? throw new InvalidOperationException("Author cannot be null");
+            return tmp;
         }
 
         public async Task<IEnumerable<CourseOverview>> GetAll()
@@ -25,7 +36,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 .Include(c => c.Categories)
                 .ToListAsync();
             
-            return courses.Select(e => e.ToModel());;
+            return courses.Select(WithAuthor);;
         }
 
         public async Task<IEnumerable<CourseOverview>> SearchCourse(string pattern)
@@ -38,7 +49,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 .Where(p => (p.Title.LevenshteinDistance(pattern) < Math.Max(p.Title.Length, pattern.Length) * 0.5 ) || (p.Title.ToLower().Contains(pattern.ToLower())) ).ToList()
                 .Select(p => p);
 
-            return filtered.Select(e => e.ToModel()).ToList();
+            return filtered.Select(WithAuthor).ToList();
         }
 
         public async Task<IEnumerable<CourseOverview>> GetByCategory(Guid categoryId)
@@ -47,7 +58,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 .Include(c => c.Categories)
                 .Where(p => p.Categories.Any(c => c.Id == categoryId)).ToListAsync();
             
-            return courses.Select(e => e.ToModel()).ToList();
+            return courses.Select(WithAuthor).ToList();
         }
 
         public async Task<IEnumerable<CourseOverview>> GetByCategory(string name)
@@ -57,10 +68,10 @@ namespace ELearn.Infrastructure.Entity.Repositories
 
             if (category != null)
             {
-                return await _context.Courses
+                return _context.Courses
                     .Include(c => c.Categories)
-                    .Where(p => p.Categories.Any(c => c.Id == category.Id)).Select(p => p.ToModel())
-                    .ToListAsync();
+                    .Where(p => p.Categories.Any(c => c.Id == category.Id))
+                    .Select(WithAuthor);
             }
             else
             {

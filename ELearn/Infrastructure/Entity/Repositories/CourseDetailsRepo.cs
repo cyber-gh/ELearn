@@ -6,6 +6,7 @@ using ELearn.Application.Repositories;
 using ELearn.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Course = ELearn.Infrastructure.Entity.Models.Course;
 
 namespace ELearn.Infrastructure.Entity.Repositories
 {
@@ -13,17 +14,29 @@ namespace ELearn.Infrastructure.Entity.Repositories
     public class CourseDetailsRepo: ICourseDetailsRepo
     {
         private readonly EntityContext _context;
+        
+        private readonly AuthContext _authContext;
+        
+        private CourseOverview WithAuthor(Course model)
+        {
+            var tmp = model.ToModel();
+            var user = _authContext.Users.FirstOrDefault(it => it.Id == model.AuthorId.ToString());
+            tmp.AppUser = user?.ToModel() ?? throw new InvalidOperationException("Author cannot be null");
+            return tmp;
+        }
 
-        public CourseDetailsRepo(EntityContext context)
+        public CourseDetailsRepo(EntityContext context, AuthContext authContext)
         {
             _context = context;
+            _authContext = authContext;
         }
 
         public async Task<CourseOverview?> Get(Guid id)
         {
             var course = await _context.Courses.FirstOrDefaultAsync(p => p.Id == id);
+            
 
-            return course.ToModel();
+            return WithAuthor(course);
         }
 
         public async Task<IEnumerable<Lesson>> GetLessons(Guid id)

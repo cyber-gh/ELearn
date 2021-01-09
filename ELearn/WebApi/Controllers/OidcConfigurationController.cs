@@ -16,13 +16,6 @@ namespace ELearn.WebApi.Controllers
 
         public IClientRequestParametersProvider ClientRequestParametersProvider { get; }
 
-        [HttpGet("authentication/_configuration/{clientId}")]
-        public IActionResult GetClientRequestParameters([FromRoute]string clientId)
-        {
-            var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
-            return Ok(parameters);
-        }
-
         [HttpGet("_configuration/{clientId}")]
         public IActionResult GetClientRequestParameters2([FromRoute]string clientId)
         {

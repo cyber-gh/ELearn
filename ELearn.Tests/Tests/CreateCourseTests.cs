@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ELearn.Application.Repositories;
 using ELearn.Domain;
 using ELearn.WebApi.Controllers.CreateCourse;
+using ELearn.WebApi.Controllers.CreateCourse.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Moq;

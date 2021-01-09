@@ -19,6 +19,11 @@ const getCourses = async (): Promise<CourseModel[]> => {
     return (await makeNetworkCall(url, [], "GET", null)) as CourseModel[];
 }
 
+const getMyCourses = async (): Promise<CourseModel[]> => {
+    const url = "/api/courselist/my-classes";
+    return (await makeNetworkCall(url, [], "GET", null)) as CourseModel[];
+}
+
 const getCategories = async () :Promise<Category[]> => {
     const url = "/api/categories/all";
     return (await makeNetworkCall(url, [], "GET", null)) as Category[];
@@ -38,7 +43,7 @@ const assignCategory = async (courseId: string, categoryId: string): Promise<obj
 }
 
 const addLesson = async (courseId: string, title: string, videoSrc: string, duration: number): Promise<LessonModel> => {
-    const url = "api/createcourse/lesson"
+    const url = "/api/createcourse/lesson"
     return (await makeNetworkCall(url, [], "POST", {
         courseId,
         title,
@@ -48,7 +53,7 @@ const addLesson = async (courseId: string, title: string, videoSrc: string, dura
 }
 
 const updateLesson = async (lessonId: string, title: string): Promise<LessonModel> => {
-    const url = "api/createcourse/lesson"
+    const url = "/api/createcourse/lesson"
     return (await makeNetworkCall(url, [], "PUT", {
         lessonId: lessonId,
         title: title
@@ -56,7 +61,7 @@ const updateLesson = async (lessonId: string, title: string): Promise<LessonMode
 }
 
 const getLessons = async (courseId: string): Promise<LessonModel[]> => {
-    const url = "api/coursedetails/lessons"
+    const url = "/api/coursedetails/lessons"
     return (await makeNetworkCall(url, [["id", courseId]], "GET", null)) as LessonModel[];
 }
 
@@ -92,4 +97,4 @@ const makeNetworkCall = async (url: string, params: [string, string][] = [], met
 
 
 
-export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory, getCourseById, updateLesson, getCourses};
+export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory, getCourseById, updateLesson, getCourses, getMyCourses};

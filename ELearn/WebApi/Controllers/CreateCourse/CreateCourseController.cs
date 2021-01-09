@@ -1,11 +1,16 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ELearn.Application.Repositories;
 using ELearn.Domain;
+using ELearn.Infrastructure.Entity.Models;
 using ELearn.WebApi.Controllers.CreateCourse.Models;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Lesson = ELearn.Domain.Lesson;
 
 namespace ELearn.WebApi.Controllers.CreateCourse
 {
@@ -16,13 +21,27 @@ namespace ELearn.WebApi.Controllers.CreateCourse
     {
 
         private readonly ICreateCourseRepo _repo;
+        private readonly UserManager<ApplicationUser> _userManager;
         
         
-        public CreateCourseController(ICreateCourseRepo repo)
+        public CreateCourseController(ICreateCourseRepo repo, UserManager<ApplicationUser> userManager)
         {
             this._repo = repo;
+            _userManager = userManager;
         }
 
+        private async Task<Guid> GetUserId()
+        {
+            ClaimsPrincipal currentUser = this.User;
+            var name = currentUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+            var user = await _userManager.FindByNameAsync(name);
+            var id = user.Id;
+            if (id == null)
+            {
+                throw new InvalidOperationException("Current user not set");
+            }
+            return Guid.Parse(id);
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddCourse([FromBody] CreateCourseRequest request)
@@ -33,13 +52,20 @@ namespace ELearn.WebApi.Controllers.CreateCourse
             {
                 return BadRequest("Invalid Form data");
             }
+
+            try
+            {
+                var id = Guid.Parse(HttpContext.User.Identity.GetSubjectId());
+                var model = new CourseOverview(Guid.NewGuid(), request.Title, request.PreviewImageUrl, request.Description,0, request.UserLevel);
+                
+                var data = await _repo.Create(model, id);
             
-            var model = new CourseOverview(Guid.NewGuid(), request.Title, request.PreviewImageUrl, request.Description,0, request.UserLevel, new AppUser());
-            
-            
-            var data = await _repo.Create(model);
-            
-            return Ok(data);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("lesson")]
         public async Task<IActionResult> AddLesson([FromBody] AddLessonRequest request)

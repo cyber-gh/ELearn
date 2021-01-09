@@ -57,9 +57,17 @@
         display: flex;
         align-items: center;
         font-size: 1.2em;
-        p {
-            font-size: 1.2em;
+        .left {
             margin-left: 50px;
+        }
+        a {
+            font-size: 1em;
+            margin: 0 8px;
+            color: white;
+        }
+        p {
+            margin: 0;
+            font-size: 1em;
         }
         .notifications {
             cursor: pointer;

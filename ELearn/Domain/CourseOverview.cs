@@ -17,6 +17,18 @@ namespace ELearn.Domain
             Categories = categories;
             AppUser = appUser;
         }
+        
+        public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel)
+        {
+            Id = id;
+            Title = title;
+            PreviewImageUrl = previewImageUrl;
+            Description = description;
+            Length = length;
+            UserLevel = userLevel;
+            AppUser = new AppUser();
+            Categories = new List<Category>();
+        }
 
         public CourseOverview(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, AppUser appUser)
         {
