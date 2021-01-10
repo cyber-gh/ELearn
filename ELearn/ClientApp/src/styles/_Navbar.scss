@@ -1,5 +1,8 @@
 
 .navbar {
+    position: relative;
+    max-width: 100vw;
+    overflow-y: visible;
     display: flex;
     justify-content: space-between;
     height: $navbar_height;
@@ -21,6 +24,29 @@
     p:hover {
         color: #00ff84;
     }
+    .input_box {
+        position: relative;
+        max-width: 400px;
+    }
+    .search_icon {
+        position: absolute;
+        top: 7px;
+        left: 17px;
+        max-width: 400px;
+        font-size: 26px;
+    }
+    input {
+        background-color: transparent;
+        color: white;
+        margin-left: 10px;
+        max-width: 400px;
+        width: 100%;
+        border: 2px solid white;
+        border-radius: 5px;
+        height: 40px;
+        padding: 8px 8px 8px 40px;
+        font-size: 0.9em;
+    }
     .nav_1 {
         display: flex;
         align-items: center;
@@ -29,28 +55,8 @@
             margin-right: 20px;
             white-space: nowrap;
         }
-        .input_box {
+        .browse-container {
             position: relative;
-            max-width: 400px;
-        }
-        .search_icon {
-            position: absolute;
-            top: 7px;
-            left: 17px;
-            max-width: 400px;
-            font-size: 26px;
-        }
-        input {
-            background-color: transparent;
-            color: white;
-            margin-left: 10px;
-            max-width: 400px;
-            width: 100%;
-            border: 2px solid white;
-            border-radius: 5px;
-            height: 40px;
-            padding: 8px 8px 8px 40px;
-            font-size: 0.9em;
         }
     }
     .nav_2 {
@@ -58,7 +64,7 @@
         align-items: center;
         font-size: 1.2em;
         .left {
-            margin-left: 50px;
+            margin-left: 10px;
         }
         a {
             font-size: 1em;
@@ -66,6 +72,7 @@
             color: white;
         }
         p {
+            white-space: nowrap;
             margin: 0;
             font-size: 1em;
         }
@@ -75,35 +82,104 @@
         .notifications:hover {
             color: $color_2;
         }
+        .avatar-container {
+            padding-left: 20px;
+            border-left: 1px solid #e7e7e7;
+        }
     }
-    @media (max-width: 870px) {
-        font-size: 14px;
-    }
-
-    @media (max-width: $tablet) {
-        font-size: 12px;
-    }
-
-    @media (max-width: 600px) {
-        .nav_1 {
+    &.mobile {
+        align-items: center;
+        svg {
+            cursor: pointer;
+        }
+        .more {
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: 100%;
+            z-index: 101;
+            width: 100%;
+            background-color: white;
+            left: 0;
+            font-size: 20px;
+            > *{
+                padding: 10px 0 10px 5px;
+                width: 100%;
+            }
+            p {
+                margin: 0;
+                color: $color_1;
+                &:hover {
+                    color: $color_1;
+                }
+            }
+            .row {
+                display: flex;
+                align-items: center;
+                .avatar {
+                    background-color: $color_1;
+                    color: white;
+                    margin-right: 15px;
+                }
+            }
             .input_box {
+                max-width: none;
+                display: flex;
+                .search_icon {
+                    top: 17px;
+                    left: 22px;
+                    color: $color_1;
+                }
+                input {
+                    color: $color_1;
+                    height: 40px;
+                    border: 2px solid $color_1;
+                }
+            }
+            .top {
+                border-top: 1px solid black;
+            }
+            .bot {
+                border-bottom: 1px solid black;
+            }
+            
+            &.disabled {
                 display: none;
             }
         }
     }
-    
-    @media (max-width: $mobile) {
-        font-size: 11px;
-        .nav_1 {
-            h2 {
-                margin-right: 5px;
+    &.desktop {
+        @media (max-width: 980px) {
+            font-size: 14px;
+        }
+
+        @media (max-width: $tablet) {
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .nav_1 {
+                .input_box {
+                    display: none;
+                }
             }
         }
-        .nav_2 {
-            p {
-                margin-left: 10px;
+
+        @media (max-width: $mobile) {
+            font-size: 11px;
+            .nav_1 {
+                h2 {
+                    margin-right: 5px;
+                }
+            }
+            .nav_2 {
+                p {
+                    margin-left: 10px;
+                }
             }
         }
     }
-    
 }

@@ -1,0 +1,47 @@
+.menu-context {
+    box-shadow: 0 0 8px 1px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    width: 500px;
+    top: 130%;
+    left: 10%;
+    height: 300px;
+    border-radius: 10px;
+    z-index: 100;
+    padding: 15px 15px 15px 5px;
+    font-size: 22px;
+    
+    .not-found {
+        color: $color_1;
+        margin-top: 70px;
+        text-align: center;
+    }
+    > .title {
+        font-weight: 600;
+        width: 100%;
+        font-size: 1.2em;
+        margin: 0 10px 10px 5px;
+        color: $color_1;
+        &:hover {
+            color: inherit;
+        }
+    }
+    > .content {
+        height: calc(100% - 31px - 10px);
+        display: flex;
+        flex-flow: column wrap;
+        > .element {
+            border-radius: 5px;
+            color: $color_1;
+            cursor: pointer;
+            padding: 10px 0 10px 10px;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: $background_color;
+            }
+        }
+    }
+}

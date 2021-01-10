@@ -155,8 +155,14 @@ section.course {
                 margin: 15px;
                 background-color: $background_color;
                 padding: 15px;
-                p.username {
+                .user-data {
                     min-width: 30%;
+                    display: flex;
+                    p.username {
+                        margin-left: 10px;
+                        margin-top: 5px;
+                        font-size: 0.8em;
+                    }
                 }
                 .info {
                     .top {
@@ -195,7 +201,7 @@ section.course {
                 @media (max-width: $small-screen) {
                     flex-direction: column;
                     font-size: 19px;
-                    .username {
+                    .user-data {
                         margin-bottom: 15px;
                     }
                 }

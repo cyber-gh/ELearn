@@ -28,7 +28,9 @@ export const LoginMenuV2 = () => {
         console.log(Object.keys(user))
         return (
             <>
-                <Link to={profilePath}><Avatar letter = {user["fullname"]}/></Link>
+                <Link to={profilePath} className = "avatar-container">
+                    <Avatar letter = {"P"}/>
+                </Link>
                 {/*<Link to={profilePath}>Profile</Link>*/}
                 <Link to={logoutPath}>Logout</Link>
             </>

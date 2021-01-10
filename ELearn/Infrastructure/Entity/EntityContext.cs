@@ -16,6 +16,7 @@ namespace ELearn.Infrastructure.Entity
         public DbSet<Models.Review> Reviews { get; set; }
         public DbSet<Models.Category> Categories { get; set; }
         public DbSet<Models.Course> Courses { get; set; }
+        public DbSet<Models.UserCourse> UserCourses { get; set; }
         
         // public DbSet<Models.CategoryCourse> CategoryCourses { get; set; }
 
@@ -29,6 +30,9 @@ namespace ELearn.Infrastructure.Entity
                 .HasMany(p => p.Courses)
                 .WithMany(p => p.Categories)
                 .UsingEntity(j => j.ToTable("CategoryCourse"));
+
+            modelBuilder.Entity<UserCourse>()
+                .HasKey(c => new {c.UserId, c.CourseId});
 
         }
     }

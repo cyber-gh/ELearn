@@ -1,6 +1,7 @@
+import history from "./history";
 import React, {Component, useContext, useEffect, useState} from 'react';
 import Navbar from "./components/Navbar";
-import {HashRouter as Router, Route, Switch, Redirect, BrowserRouter, HashRouter} from "react-router-dom";
+import {Router, Route, Switch, Redirect, BrowserRouter} from "react-router-dom";
 // import { Router, Route, Switch, Redirect} from "react-router-dom";
 import { Container } from 'reactstrap';
 import Home from "./pages/HomeView";
@@ -17,6 +18,7 @@ import ApiAuthorizationRoutes from "./components/api-authorization/ApiAuthorizat
 import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 import authService from "./components/api-authorization/AuthorizeService";
 import {AuthContext, AuthProvider} from "./components/AuthProvider";
+import CoursesCategoryView from "./pages/CoursesCategoryView";
 
 const CustomRoute = ({path, condition, component: Component}: RouteData) => {
 	if (!condition) {
@@ -38,8 +40,7 @@ const App = () => {
 	
 	return(
 		<AuthProvider>
-			<BrowserRouter>
-				
+			<Router history={history}>
 					<SnackbarProvider>
 						{/*<Router>*/}
 						<Navbar/>
@@ -47,6 +48,7 @@ const App = () => {
 							<Switch>
 								{/*<Redirect exact from = "/" to = "/home"/>*/}
 								<Route exact path="/" component={Home}/>
+								<CustomRoute path="/courses/:id" condition={authData.authenticated} component={CoursesCategoryView}/>
 								<CustomRoute path="/course/:id" condition={authData.authenticated} component={CourseView}/>
 								<CustomRoute path="/add-course" condition={authData.authenticated} component={AddCourseView}/>
 								<CustomRoute path="/add-lessons/:id" condition={authData.authenticated} component={AddLessonsView}/>
@@ -57,8 +59,7 @@ const App = () => {
 						<Footer/>
 						{/*</Router>*/}
 					</SnackbarProvider>
-				
-			</BrowserRouter>
+			</Router>
 		</AuthProvider>
 	)
 }

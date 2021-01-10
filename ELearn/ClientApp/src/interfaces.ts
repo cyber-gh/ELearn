@@ -34,7 +34,10 @@ interface CourseModel {
     description: string,
     length: number,
     userLevel: string,
-    categories: Category[]
+    categories: Category[],
+    appUser: {
+        fullName: string,
+    }
 }
 
 interface AddCourseModel {

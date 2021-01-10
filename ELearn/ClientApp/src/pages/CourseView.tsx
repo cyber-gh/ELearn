@@ -3,6 +3,7 @@ import { getCourseById } from '../api';
 import LevelIcon from '../components/LevelIcon';
 import {CourseDetailsModel, CourseModel, LessonModel, ReviewModel} from "../interfaces";
 import { reviews } from '../sampleData';
+import Avatar from "../components/Avarat";
 
 export interface Props {
     match: {
@@ -33,7 +34,10 @@ const Reviews = (courseId) => {
         <div className="reviews">
             {data.map((x,index) => (
                 <div key={index} className="element">
-                    <p className="username">From: {x.username}</p>
+                    <div className="user-data">
+                        <Avatar letter={x.username[0]}/>
+                        <p className="username">From: {x.username}</p>
+                    </div>
                     <div className = "info">
                         <div className = "top">
                             <p className="title">{x.title}</p>
@@ -74,7 +78,7 @@ const CourseView = ({match: {params: {id}}}: Props) => {
 
     useEffect(() => {
         getData();
-    }, [])
+    }, [id])
 
     if (!data) {
         return <div>loading lmao lol</div>
@@ -85,7 +89,7 @@ const CourseView = ({match: {params: {id}}}: Props) => {
             <div className="container">
                 <div className = "main">
                     <p className="title">{data.overview.title}</p>
-                    <p className = "author">Chris Brown</p>
+                    <p className = "author">{data.overview.appUser.fullName}</p>
                     <div className="content">
                         <div className="media">
                             {data.lessons.length > 0 && <video controls src = {data.lessons[currentLesson].videoSrc}/>}

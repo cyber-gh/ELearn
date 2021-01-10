@@ -4,6 +4,11 @@ import authService from "./components/api-authorization/AuthorizeService";
 
 type Method = "GET" | "POST" | "DELETE" | "PUT";
 
+const searchCourse = async (key: string): Promise<CourseModel[]> => {
+    const url = "/api/courselist/search";
+    return (await makeNetworkCall(url, [["pattern", key]], "GET", null)) as CourseModel[];
+}
+
 const getCourseById = async (id: string): Promise<CourseDetailsModel> => {
     const url = "/api/coursedetails";
     return (await makeNetworkCall(url, [["id", id]], "GET", null)) as CourseDetailsModel;
@@ -97,4 +102,4 @@ const makeNetworkCall = async (url: string, params: [string, string][] = [], met
 
 
 
-export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory, getCourseById, updateLesson, getCourses, getMyCourses};
+export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory, getCourseById, updateLesson, getCourses, getMyCourses, searchCourse};

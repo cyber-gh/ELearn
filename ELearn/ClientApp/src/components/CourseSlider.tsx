@@ -15,7 +15,6 @@ export interface Props {
 const CourseSlider = (props: Props) => {
     const [selected, setSelected] = useState(0);
     const [data, setData] = useState <CourseModel[] | null> (null);
-    console.log(data);
     
     const getData = async () => {
         let courses = await getCoursesByCategory("recommended");

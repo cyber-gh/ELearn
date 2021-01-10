@@ -8,7 +8,7 @@ export interface Props extends CourseModel {
     edit: boolean
 }
 
-export default ({previewImageUrl, id, length, title, edit}: Props) => {
+export default ({previewImageUrl, id, length, title, edit, appUser: {fullName: author}}: Props) => {
     const [bookmarked, setBookmarked] = useState(false);
 
     const handleClick = () => {
@@ -31,7 +31,7 @@ export default ({previewImageUrl, id, length, title, edit}: Props) => {
                 </div>
                 <p className = "course-title">{title}</p>
                 <div className = "separe separe_2">
-                    <p>John Pidar</p>
+                    <p>{author}</p>
                     {!edit ? 
                         (bookmarked ? <BookmarkFilled className = "icon bookmark_active" onClick = {handleClick}/> : <BookmarkEmpty className = "bookmark" onClick = {handleClick}/>) :
                         <Edit className = "icon edit-icon" />

@@ -52,9 +52,6 @@
       <_ContentIncludedByDefault Remove="WebApi\Pages\Shared\_LoginPartial.cshtml" />
       <_ContentIncludedByDefault Remove="WebApi\Pages\_ViewImports.cshtml" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="WebApi\Controllers\Auth" />
-    </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
