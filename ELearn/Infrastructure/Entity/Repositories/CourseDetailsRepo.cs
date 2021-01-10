@@ -27,6 +27,29 @@ namespace ELearn.Infrastructure.Entity.Repositories
             return tmp;
         }
 
+        private Domain.Review WithDetails(Models.Review model)
+        {
+            var dModel = model.ToModel();
+            var user = _authContext.Users.FirstOrDefault(it => it.Id == model.UserId.ToString());
+            dModel.User = user.ToModel();
+            return dModel;
+        }
+
+        public Domain.Lesson WithDetails(Models.Lesson model)
+        {
+            var dModel = model.ToModel();
+            
+            if (model.QuizId == null || model.QuizId == Guid.Empty) return dModel;
+            dModel.Quiz = new Domain.Quiz()
+            {
+                Id = (Guid) model.QuizId
+            };
+            dModel.Quiz.Elements = _context.QuizElements.Where(it => it.QuizId == model.QuizId)
+                .Select(it => new Domain.QuizElement(it.Id, it.Question, it.Answers, it.CorrectAnswer)).ToList();
+
+            return dModel;
+        }
+
         public CourseDetailsRepo(EntityContext context, AuthContext authContext)
         {
             _context = context;
@@ -45,14 +68,34 @@ namespace ELearn.Infrastructure.Entity.Repositories
         {
             var lessons = await _context.Lessons.Where(p => p.CourseId == id).ToListAsync();
 
-            return lessons.Select(l => l.ToModel()).ToList();
+            return lessons.Select(WithDetails).ToList();
         }
 
         public async Task<IEnumerable<Review>> GetReviews(Guid id)
         {
-            var reviews = await _context.Reviews.Where(r => r.CourseId == id).ToListAsync();
+            var reviews = await _context.Reviews.Where(r => r.CourseId == id) .ToListAsync();
 
-            return reviews.Select(p => p.ToModel()).ToList();
+            return reviews.Select(WithDetails).ToList();
+        }
+
+        public async Task<Review> AddReview(Review rv, Guid authorId, Guid courseId)
+        {
+            var model = new ELearn.Infrastructure.Entity.Models.Review()
+            {
+                Id = rv.Id,
+                UserId = authorId,
+                CourseId = courseId,
+                Title = rv.Title,
+                Comment = rv.Comment,
+                RecommendFor = rv.RecommendFor,
+                CreatedDate = DateTime.Now
+            };
+            
+            var exists = _context.Reviews.Count(it => it.UserId == authorId) >= 1;
+            if (exists) throw new InvalidOperationException("User already reviewed this course");
+            await _context.Reviews.AddAsync(model);
+            await _context.SaveChangesAsync();
+            return WithDetails(model);
         }
     }
 }

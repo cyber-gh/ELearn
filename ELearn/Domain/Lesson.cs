@@ -18,5 +18,6 @@ namespace ELearn.Domain
         public string VideoSrc { get; set; }
         public int Duration { get; set; }
         public Quiz? Quiz { get; set; }
+        public QuizResult? QuizResult { get; set; }
     }
 }

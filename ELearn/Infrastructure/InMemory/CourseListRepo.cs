@@ -61,6 +61,16 @@ namespace ELearn.Infrastructure.InMemory
             return Courses.FirstOrDefault(p => p.Id == id)?.Reviews ?? Array.Empty<Review>();
         }
 
+        public Task<Review> AddReview(Review rv, Guid authorId, Guid courseId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Review> AddReview(Review rv, Guid authorId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<CourseOverview> Create(CourseOverview overview)
         {
             Courses.Add(new Course(overview, new List<Lesson>(), new List<Review>()));
@@ -108,6 +118,11 @@ namespace ELearn.Infrastructure.InMemory
         }
 
         public Task<Course> ModifyCourse(Guid idx, Course newCourse)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddQuiz(Quiz quiz, Guid lessonId)
         {
             throw new NotImplementedException();
         }

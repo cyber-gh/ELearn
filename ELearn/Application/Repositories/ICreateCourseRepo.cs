@@ -21,7 +21,9 @@ namespace ELearn.Application.Repositories
         Task RemoveLesson(Guid lessonId);
         Task<Lesson?> UpdateLesson(Guid idx, string newName);
         Task<Course> ModifyCourse(Guid idx, Course newCourse);
-        
-        
+
+        Task AddQuiz(Quiz quiz, Guid lessonId);
+
+
     }
 }

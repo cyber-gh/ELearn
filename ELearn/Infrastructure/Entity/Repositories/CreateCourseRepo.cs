@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Category = ELearn.Infrastructure.Entity.Models.Category;
 using Course = ELearn.Domain.Course;
 using Lesson = ELearn.Domain.Lesson;
+using Quiz = ELearn.Domain.Quiz;
+using QuizElement = ELearn.Infrastructure.Entity.Models.QuizElement;
 
 namespace ELearn.Infrastructure.Entity.Repositories
 {
@@ -67,7 +69,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
 
         public async Task<IEnumerable<Lesson>> AddLessons(Guid courseId, List<Lesson> lessons)
         {
-            List<Models.Lesson> l = lessons.Select(p => new Models.Lesson(p.Id, courseId, p.Title, p.VideoSrc, p.Duration, null)).ToList();
+            List<Models.Lesson> l = lessons.Select(p => new Models.Lesson(p.Id, courseId, p.Title, p.VideoSrc, p.Duration)).ToList();
             var duration = l.Sum(p => p.Duration);
             var course = await _context.Courses.FirstOrDefaultAsync(p => p.Id == courseId);
             course.Length += duration;
@@ -106,6 +108,33 @@ namespace ELearn.Infrastructure.Entity.Repositories
         public Task<Course> ModifyCourse(Guid idx, Course newCourse)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task AddQuiz(Quiz quiz, Guid lessonId)
+        {
+            var lesson = await _context.Lessons.FirstOrDefaultAsync(it => it.Id == lessonId);
+
+            if (lesson.QuizId != null)
+            {
+                throw new InvalidOperationException("Lesson already has a quiz");
+            }
+            var q = new Models.Quiz()
+            {
+                Id = quiz.Id,
+                Name = "Quiz"
+            };
+            lesson.QuizId = quiz.Id;
+            await _context.Quizzes.AddAsync(q);
+            
+
+            // lesson.Quiz.Elements = quiz.Elements.Select(it => new QuizElement(it.Id, it.Question, it.Answers.ToList(), it.CorrectAnswer)).ToList();
+            quiz.Elements.Select(it => new QuizElement(it.Id, quiz.Id, it.Question, it.Answers.ToList(), it.CorrectAnswer)).ToList().ForEach(
+                it =>
+                {
+                    _context.QuizElements.Add(it);
+                });
+            
+            await _context.SaveChangesAsync();
         }
     }
 }

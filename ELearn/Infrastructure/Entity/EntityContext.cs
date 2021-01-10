@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using ELearn.Infrastructure.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -17,6 +19,8 @@ namespace ELearn.Infrastructure.Entity
         public DbSet<Models.Category> Categories { get; set; }
         public DbSet<Models.Course> Courses { get; set; }
         public DbSet<Models.UserCourse> UserCourses { get; set; }
+        public DbSet<Models.Quiz> Quizzes { get; set; }
+        public DbSet<Models.QuizElement> QuizElements { get; set; }
         
         // public DbSet<Models.CategoryCourse> CategoryCourses { get; set; }
 
@@ -34,6 +38,13 @@ namespace ELearn.Infrastructure.Entity
             modelBuilder.Entity<UserCourse>()
                 .HasKey(c => new {c.UserId, c.CourseId});
 
+            modelBuilder.Entity<QuizElement>()
+                .Property(e => e.Answers)
+                .HasConversion(
+                    v => string.Join(';', v),
+                    v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+                );
+            
         }
     }
 }

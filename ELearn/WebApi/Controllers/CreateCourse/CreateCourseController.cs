@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ELearn.Application.Repositories;
@@ -11,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Lesson = ELearn.Domain.Lesson;
+using Quiz = ELearn.Domain.Quiz;
+using QuizElement = ELearn.Domain.QuizElement;
 
 namespace ELearn.WebApi.Controllers.CreateCourse
 {
@@ -30,19 +33,9 @@ namespace ELearn.WebApi.Controllers.CreateCourse
             _userManager = userManager;
         }
 
-        private async Task<Guid> GetUserId()
-        {
-            ClaimsPrincipal currentUser = this.User;
-            var name = currentUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
-            var user = await _userManager.FindByNameAsync(name);
-            var id = user.Id;
-            if (id == null)
-            {
-                throw new InvalidOperationException("Current user not set");
-            }
-            return Guid.Parse(id);
-        }
-
+        /*
+         * Add course
+         */
         [HttpPost]
         public async Task<IActionResult> AddCourse([FromBody] CreateCourseRequest request)
         {
@@ -67,6 +60,9 @@ namespace ELearn.WebApi.Controllers.CreateCourse
                 return BadRequest(ex.Message);
             }
         }
+        /*
+         * Add lesson
+         */
         [HttpPost("lesson")]
         public async Task<IActionResult> AddLesson([FromBody] AddLessonRequest request)
         {
@@ -81,6 +77,9 @@ namespace ELearn.WebApi.Controllers.CreateCourse
             return Ok(lesson);
         }
         
+        /*
+         * Modify lesson name
+         */
         [HttpPut("lesson")]
         public async Task<IActionResult> UpdateLesson([FromBody] UpdateLessonRequest request)
         {
@@ -94,6 +93,9 @@ namespace ELearn.WebApi.Controllers.CreateCourse
             return Ok(lesson);
         }
 
+        /*
+         * Remove lesson from course
+         */
         [HttpDelete("lesson")]
         public async Task<IActionResult> RemoveLesson([Required] Guid lessonId)
         {
@@ -102,6 +104,9 @@ namespace ELearn.WebApi.Controllers.CreateCourse
             return Ok();
         }
 
+        /*
+         * Assign category to course
+         */
         [HttpPost("category")]
         public async Task<IActionResult> AssignCategory([FromBody] AssignCategoryRequest request)
         {
@@ -111,11 +116,47 @@ namespace ELearn.WebApi.Controllers.CreateCourse
             return Ok();
         }
         
+        /*
+         * Unassign category from course
+         */
         [HttpDelete("category")]
         public async Task<IActionResult> UnassignCategory([FromBody] AssignCategoryRequest request)
         {
 
             await _repo.UnassignCategory(request.CourseId, request.CategoryId);
+
+            return Ok();
+        }
+
+        [HttpPost("lesson/quiz")]
+        public async Task<IActionResult> AddQuiz([FromBody] AddQuizRequest request)
+        {
+
+            if (!TryValidateModel(request, nameof(request)))
+            {
+                return BadRequest("Invalid form data");
+            }
+
+            var questions = request.Elements.Select(it => it.Question).ToHashSet();
+            if (questions.Count() != request.Elements.Count())
+            {
+                return BadRequest("All questions must be different");
+            }
+            foreach (var addQuizRequestElement in request.Elements)
+            {
+                if (addQuizRequestElement.Answers.Contains(addQuizRequestElement.CorrectAnswer) == false)
+                {
+                    return BadRequest("Correct answer is not found in the available answers");
+                }
+            }
+            
+            var model = new Quiz()
+            {
+                Id = Guid.NewGuid(),
+                Elements = request.Elements.Select(it => new QuizElement(Guid.NewGuid(), it.Question, it.Answers, it.CorrectAnswer))
+            };
+
+            await _repo.AddQuiz(model, request.LessonId);
 
             return Ok();
         }

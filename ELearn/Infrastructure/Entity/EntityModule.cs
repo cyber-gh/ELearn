@@ -49,6 +49,10 @@ namespace ELearn.Infrastructure.Entity
                 .As<IAnalyticsRepo>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<UserRepo>()
+                .As<IUserRepo>()
+                .InstancePerLifetimeScope();
+
         }
     }
 }

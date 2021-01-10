@@ -11,6 +11,7 @@ namespace ELearn.Application.Repositories
         Task<CourseOverview?> Get(Guid id);
         Task<IEnumerable<Lesson>> GetLessons(Guid id);
         Task<IEnumerable<Review>> GetReviews(Guid id);
+        Task<Review> AddReview(Review rv, Guid authorId, Guid courseId);
 
         async Task<Course> GetDetails(Guid id)
         {
@@ -22,6 +23,7 @@ namespace ELearn.Application.Repositories
 
             return new Course(overview.Result, lessons.Result, reviews.Result);
         }
+        
 
     }
 }
