@@ -17,15 +17,16 @@ export interface Props {
 }
 
 export default (props: Props) => {
-    console.log(props);
     const {authenticated, user} = useContext(AuthContext);
     const [context, setContext] = useState <0 | 1 | 2> (0);
     const [search, setSearch] = useState("");
     const [mobileMenu, setMobileMenu] = useState(false);
     const [menuState, setMenuState] = useState(false);
-    console.log(mobileMenu);
+    console.log(context);
+    console.log(context === 1);
     
     const handleBrowseClick = () => {
+        console.log("lol wat?");
         if (context != 1)
             setContext(1);
         else
@@ -37,7 +38,6 @@ export default (props: Props) => {
             setContext(2);
     }
     const handleInputChange = useCallback(debounce((e: any) => {
-        console.log(e);
         if (context != 2)
             setContext(2);
         setSearch(e.target.value);
@@ -111,18 +111,24 @@ export default (props: Props) => {
                 <h2>FakeShare</h2>
             </Link>
             <MenuIcon onClick={handleMenuClick}/>
-            <div className={`more ${menuState ? "disabled" : ""}`}>
+            <div className={`more ${menuState ? "active" : ""}`}>
                 <div className="browse-container element top bot">
                     <p className = "exclude-1" onClick={handleBrowseClick}>Browse</p>
-                    <BrowseContext close = {close} open={context===1}/>
+                    <BrowseContext className = "mobile" close = {close} open={context===1}/>
                 </div>
-                <div className = "row bot">
-                    <LoginMenuV2/>
+                <Link to = "/add-course" className = "bot">
+                    Add class
+                </Link>
+                <Link to = "/my-classes" className = "bot">
+                    My Classes
+                </Link>
+                <div className = "row">
+                    <LoginMenuV2 mobile/>
                 </div>
                 <div className = "input_box bot">
                     <Search className = "search_icon"/>
                     <input onClick={handleInputClick} onChange={handleInputChange} className = "navbar_input exclude-1" placeholder="Search for a course"/>
-                    <SearchContext close = {close} open = {context===2} searchKey = {search}/>
+                    <SearchContext className = "mobile" close = {close} open = {context===2} searchKey = {search}/>
                 </div>
             </div>
         </div>

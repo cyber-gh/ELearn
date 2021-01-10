@@ -14,7 +14,7 @@ const Footer = (props: Props) => {
         <section className="footer">
             <div className = "first">
                 <p className="copyright">
-                    © FakeShare, Inc. 2020
+                    © ELearn, Inc. 2020
                 </p>
             </div>
             <div className="second">

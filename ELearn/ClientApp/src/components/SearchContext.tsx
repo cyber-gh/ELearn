@@ -7,10 +7,11 @@ import {Link} from "react-router-dom";
 export interface Props {
     open: boolean,
     searchKey: string,
+    className?: string,
     close: () => void,
 }
 
-const SearchContext = ({open, searchKey, close}: Props) => {
+const SearchContext = ({open, searchKey, close, className: classes}: Props) => {
     let key = searchKey.trim();
     const [data, setData] = useState <null | CourseModel[]> (null);
     
@@ -32,7 +33,7 @@ const SearchContext = ({open, searchKey, close}: Props) => {
     if (!data || !open) return null;
     
     return (
-        <div className="menu-context">
+        <div className={"menu-context " + (classes ? classes: "")}>
             <p className="title">
                 Courses:
             </p>

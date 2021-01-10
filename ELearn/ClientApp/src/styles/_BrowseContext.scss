@@ -9,13 +9,13 @@
     left: 10%;
     height: 300px;
     border-radius: 10px;
-    z-index: 100;
+    z-index: 10000000;
     padding: 15px 15px 15px 5px;
     font-size: 22px;
     
     .not-found {
         color: $color_1;
-        margin-top: 70px;
+        margin-top: 70px !important;
         text-align: center;
     }
     > .title {
@@ -43,5 +43,10 @@
                 background-color: $background_color;
             }
         }
+    }
+    &.mobile {
+        left: 0px;
+        width: 95vw;
+        top: 100%;
     }
 }

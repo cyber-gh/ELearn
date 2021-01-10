@@ -16,14 +16,6 @@
     h2, p {
         color: white;
     }
-    p {
-        cursor: pointer;
-        font-size: 1.2em;
-        margin: 0 15px;
-    }
-    p:hover {
-        color: #00ff84;
-    }
     .input_box {
         position: relative;
         max-width: 400px;
@@ -47,22 +39,42 @@
         padding: 8px 8px 8px 40px;
         font-size: 0.9em;
     }
+    .browse-container {
+        position: relative;
+        p {
+            cursor: pointer;
+        }
+    }
     .nav_1 {
+        
         display: flex;
         align-items: center;
         font-size: 1.2em;
+        p {
+            cursor: pointer;
+            font-size: 1.2em;
+            margin: 0 15px;
+            &:hover {
+                color: #00ff84;
+            }
+        }
         h2 {
             margin-right: 20px;
             white-space: nowrap;
-        }
-        .browse-container {
-            position: relative;
         }
     }
     .nav_2 {
         display: flex;
         align-items: center;
         font-size: 1.2em;
+        p {
+            cursor: pointer;
+            font-size: 1.2em;
+            margin: 0 15px;
+            &:hover {
+                color: #00ff84;
+            }
+        }
         .left {
             margin-left: 10px;
         }
@@ -93,9 +105,9 @@
             cursor: pointer;
         }
         .more {
+            display: none;
             min-height: 100vh;
             padding: 10px;
-            display: flex;
             flex-direction: column;
             align-items: center;
             position: absolute;
@@ -104,8 +116,8 @@
             width: 100%;
             background-color: white;
             left: 0;
-            font-size: 20px;
-            > *{
+            font-size: 22px;
+            > *, .row a{
                 padding: 10px 0 10px 5px;
                 width: 100%;
             }
@@ -117,26 +129,25 @@
                 }
             }
             .row {
+                padding: 0;
                 display: flex;
-                align-items: center;
-                .avatar {
-                    background-color: $color_1;
-                    color: white;
-                    margin-right: 15px;
-                }
+                flex-direction: column;
             }
             .input_box {
+                padding-left: 0;
                 max-width: none;
                 display: flex;
                 .search_icon {
                     top: 17px;
-                    left: 22px;
+                    left: 10px;
                     color: $color_1;
                 }
                 input {
+                    margin-left: 0;
                     color: $color_1;
                     height: 40px;
                     border: 2px solid $color_1;
+                    max-width: none;
                 }
             }
             .top {
@@ -146,8 +157,8 @@
                 border-bottom: 1px solid black;
             }
             
-            &.disabled {
-                display: none;
+            &.active {
+                display: flex;
             }
         }
     }

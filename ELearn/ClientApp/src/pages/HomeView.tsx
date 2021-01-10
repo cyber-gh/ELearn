@@ -16,7 +16,7 @@ const Home = (props: Props) => {
             <section className="container">
                 <div className="course-list">
                     <p className="title">
-                        Featured On Fakeshare
+                        Featured On ELearn
                     </p>
                     <CourseCardCarousel category = "recommended"/>
                 </div>

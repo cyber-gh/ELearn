@@ -6,8 +6,12 @@ import {Login} from "./Login";
 import Avarat from "../Avarat";
 import Avatar from "../Avarat";
 
+export interface Props {
+    mobile?: boolean
+}
 
-export const LoginMenuV2 = () => {
+
+export const LoginMenuV2 = ({mobile}: Props) => {
     const {authenticated, user} = useContext(AuthContext);
     if (!authenticated || !user) {
         const registerPath = `${ApplicationPaths.Register}`;
@@ -15,12 +19,11 @@ export const LoginMenuV2 = () => {
         
         return (
             <>
-                <Link to={registerPath}>Register</Link>
-                <Link to={loginPath}>Login</Link>
+                <Link to={registerPath} className = "bot">Register</Link>
+                <Link to={loginPath} className = "bot">Login</Link>
             </>
         ) 
-    } else {
-        console.log(user);
+    } else if (!mobile) {
         const profilePath = `${ApplicationPaths.Profile}`;
         const logoutPath = { pathname: `${ApplicationPaths.LogOut}`, state: { local: true } };
         
@@ -33,6 +36,19 @@ export const LoginMenuV2 = () => {
                 </Link>
                 {/*<Link to={profilePath}>Profile</Link>*/}
                 <Link to={logoutPath}>Logout</Link>
+            </>
+        )
+    }
+    else{
+        const profilePath = `${ApplicationPaths.Profile}`;
+        const logoutPath = { pathname: `${ApplicationPaths.LogOut}`, state: { local: true } };
+        
+        console.log("user is")
+        console.log(Object.keys(user))
+        return (
+            <>
+                <Link to={profilePath} className="bot">Profile</Link>
+                <Link to={logoutPath} className="bot">Logout</Link>
             </>
         )
     }
