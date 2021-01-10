@@ -17,11 +17,13 @@ namespace ELearn.Infrastructure.Entity.Repositories
         
         private readonly AuthContext _authContext;
         
-        private CourseOverview WithAuthor(Course model)
+        private CourseOverview WithDetails(Course model)
         {
             var tmp = model.ToModel();
             var user = _authContext.Users.FirstOrDefault(it => it.Id == model.AuthorId.ToString());
             tmp.AppUser = user?.ToModel() ?? throw new InvalidOperationException("Author cannot be null");
+            var visitors = (_context.UserCourses.Where(p => p.CourseId == model.Id).Distinct().Count());
+            tmp.Visitors = visitors;
             return tmp;
         }
 
@@ -36,7 +38,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
             var course = await _context.Courses.FirstOrDefaultAsync(p => p.Id == id);
             
 
-            return WithAuthor(course);
+            return WithDetails(course);
         }
 
         public async Task<IEnumerable<Lesson>> GetLessons(Guid id)

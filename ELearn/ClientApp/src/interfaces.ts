@@ -31,6 +31,7 @@ interface CourseModel {
     id: string,
     title: string,
     previewImageUrl: string,
+    visitors: number,
     description: string,
     length: number,
     userLevel: string,

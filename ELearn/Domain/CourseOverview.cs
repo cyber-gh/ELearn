@@ -26,6 +26,7 @@ namespace ELearn.Domain
             Description = description;
             Length = length;
             UserLevel = userLevel;
+            Visitors = 0;
             AppUser = new AppUser();
             Categories = new List<Category>();
         }
@@ -39,6 +40,7 @@ namespace ELearn.Domain
             Length = length;
             UserLevel = userLevel;
             AppUser = appUser;
+            Visitors = 0;
             Categories = new List<Category>();
         }
 
@@ -48,6 +50,7 @@ namespace ELearn.Domain
         public String Description { get; set; }
         public int Length { get; set; } //seconds total
         public UserLevel UserLevel { get; set; }
+        public int Visitors { get; set; }
         public AppUser AppUser { get; set; }
         public IEnumerable<Category> Categories { get; set; }
     }

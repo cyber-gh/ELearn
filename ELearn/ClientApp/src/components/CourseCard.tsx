@@ -8,7 +8,7 @@ export interface Props extends CourseModel {
     edit: boolean
 }
 
-export default ({previewImageUrl, id, length, title, edit, appUser: {fullName: author}}: Props) => {
+export default ({previewImageUrl, id, length, title, edit, appUser: {fullName: author}, visitors}: Props) => {
     const [bookmarked, setBookmarked] = useState(false);
 
     const handleClick = () => {
@@ -23,7 +23,7 @@ export default ({previewImageUrl, id, length, title, edit, appUser: {fullName: a
             <div className = "course-content">
                 <div className = "separe separe_1">
                     <p>
-                        6969 students
+                        {visitors} students
                     </p>
                     <p>
                         {Math.floor(length / 60)} minutes

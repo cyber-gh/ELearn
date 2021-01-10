@@ -22,11 +22,13 @@ namespace ELearn.Infrastructure.Entity.Repositories
             _authContext = authContext;
         }
 
-        private CourseOverview WithAuthor(Course model)
+        private CourseOverview WithDetails(Course model)
         {
             var tmp = model.ToModel();
             var user = _authContext.Users.FirstOrDefault(it => it.Id == model.AuthorId.ToString());
             tmp.AppUser = user?.ToModel() ?? throw new InvalidOperationException("Author cannot be null");
+            var visitors = (_context.UserCourses.Where(p => p.CourseId == model.Id).Distinct().Count());
+            tmp.Visitors = visitors;
             return tmp;
         }
 
@@ -36,7 +38,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 .Include(c => c.Categories)
                 .ToListAsync();
             
-            return courses.Select(WithAuthor);;
+            return courses.Select(WithDetails);;
         }
 
         public async Task<IEnumerable<CourseOverview>> SearchCourse(string pattern)
@@ -49,7 +51,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 .Where(p => (p.Title.LevenshteinDistance(pattern) < Math.Max(p.Title.Length, pattern.Length) * 0.5 ) || (p.Title.ToLower().Contains(pattern.ToLower())) ).ToList()
                 .Select(p => p);
 
-            return filtered.Select(WithAuthor).ToList();
+            return filtered.Select(WithDetails).ToList();
         }
 
         public async Task<IEnumerable<CourseOverview>> GetByCategory(Guid categoryId)
@@ -58,7 +60,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 .Include(c => c.Categories)
                 .Where(p => p.Categories.Any(c => c.Id == categoryId)).ToListAsync();
             
-            return courses.Select(WithAuthor).ToList();
+            return courses.Select(WithDetails).ToList();
         }
 
         public async Task<IEnumerable<CourseOverview>> GetByCategory(string name)
@@ -71,7 +73,7 @@ namespace ELearn.Infrastructure.Entity.Repositories
                 return _context.Courses
                     .Include(c => c.Categories)
                     .Where(p => p.Categories.Any(c => c.Id == category.Id))
-                    .Select(WithAuthor);
+                    .Select(WithDetails);
             }
             else
             {

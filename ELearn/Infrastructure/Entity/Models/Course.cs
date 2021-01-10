@@ -18,6 +18,8 @@ namespace ELearn.Infrastructure.Entity.Models
             UserLevel = userLevel;
             Categories = categories;
             AuthorId = authorId;
+            Visitors = 0;
+            
         }
 
         public Course(Guid id, string title, string previewImageUrl, string description, int length, UserLevel userLevel, Guid authorId)
@@ -29,6 +31,7 @@ namespace ELearn.Infrastructure.Entity.Models
             Length = length;
             UserLevel = userLevel;
             AuthorId = authorId;
+            Visitors = 0;
             Categories = new List<Category>();
         }
 
@@ -43,6 +46,7 @@ namespace ELearn.Infrastructure.Entity.Models
         public String Description { get; set; }
         public int Length { get; set; } //seconds total
         public UserLevel UserLevel { get; set; }
+        public int Visitors { get; set; }
         public Guid AuthorId { get; set; }
         public ICollection<Category> Categories { get; set; }
         public Domain.CourseOverview ToModel()
