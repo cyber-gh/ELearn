@@ -87,7 +87,7 @@
                 color: white;
             }
             &:active {
-                margin-top: 18px;
+                box-shadow: 0 0 5px 0 $color_1;
             }
         }
         .info-input {

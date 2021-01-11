@@ -53,21 +53,41 @@ interface LessonModel {
     title: string,
     videoSrc: string,
     duration: number,
-    quiz?: object
+    quiz: QuizModel | null
 }
 
 interface CourseDetailsModel {
     id: string,
     overview: CourseModel,
     lessons: LessonModel[],
+    reviews: ReviewModel[],
+}
+
+interface UserModel {
+    email: string,
+    fullName: string,
+    id: string,
+    isConfirmed: boolean
 }
 
 interface ReviewModel {
-    username: string,
+    fullName: string,
     title: string,
-    description: string,
-    timeAdded: string,
-    recommend: "Beginner" | "Intermediate" | "Expert";
+    comment: string,
+    createdDate: string,
+    recommendFor: "Beginner" | "Intermediate" | "Expert";
+    user?: UserModel,
+    id?: string,
 }
 
-export type {CourseDetailsModel, CourseCardData, CourseSliderElement, RouteData, Category, CourseModel, AddCourseModel, LessonModel, ReviewModel};
+interface QuizModel {
+    id: string,
+    elements: {
+        id: string,
+        question: string,
+        answers: string[],
+        correctAnswer: string
+    }[]
+}
+
+export type {QuizModel,UserModel, CourseDetailsModel, CourseCardData, CourseSliderElement, RouteData, Category, CourseModel, AddCourseModel, LessonModel, ReviewModel};

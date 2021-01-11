@@ -19,6 +19,16 @@ import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 import authService from "./components/api-authorization/AuthorizeService";
 import {AuthContext, AuthProvider} from "./components/AuthProvider";
 import CoursesCategoryView from "./pages/CoursesCategoryView";
+import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
+import * as path from "path";
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "#3722D3"
+		}
+	}
+})
 
 const CustomRoute = ({path, condition, component: Component}: RouteData) => {
 	if (!condition) {
@@ -36,30 +46,30 @@ const CustomRoute = ({path, condition, component: Component}: RouteData) => {
 
 const App = () => {
 	const authData = useContext(AuthContext);
-	
-	
 	return(
 		<AuthProvider>
-			<Router history={history}>
-					<SnackbarProvider>
-						{/*<Router>*/}
-						<Navbar/>
-						<section className="main-window-container">
-							<Switch>
-								{/*<Redirect exact from = "/" to = "/home"/>*/}
-								<Route exact path="/" component={Home}/>
-								<CustomRoute path="/courses/:id" condition={authData.authenticated} component={CoursesCategoryView}/>
-								<CustomRoute path="/course/:id" condition={authData.authenticated} component={CourseView}/>
-								<CustomRoute path="/add-course" condition={authData.authenticated} component={AddCourseView}/>
-								<CustomRoute path="/add-lessons/:id" condition={authData.authenticated} component={AddLessonsView}/>
-								<CustomRoute path="/my-classes" condition={authData.authenticated} component={UserCoursesView}/>
-								<Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
-							</Switch>
-						</section>
-						<Footer/>
-						{/*</Router>*/}
-					</SnackbarProvider>
-			</Router>
+			<MuiThemeProvider theme={theme}>
+				<Router history={history}>
+						<SnackbarProvider>
+							{/*<Router>*/}
+							<Navbar/>
+							<section className="main-window-container">
+								<Switch>
+									{/*<Redirect exact from = "/" to = "/home"/>*/}
+									<Route exact path="/" component={Home}/>
+									<CustomRoute path="/courses/:id" condition={authData.authenticated} component={CoursesCategoryView}/>
+									<CustomRoute path="/course/:id" condition={authData.authenticated} component={CourseView}/>
+									<CustomRoute path="/add-course" condition={authData.authenticated} component={AddCourseView}/>
+									<CustomRoute path="/add-lessons/:id" condition={authData.authenticated} component={AddLessonsView}/>
+									<CustomRoute path="/my-classes" condition={authData.authenticated} component={UserCoursesView}/>
+									<Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
+								</Switch>
+							</section>
+							<Footer/>
+							{/*</Router>*/}
+						</SnackbarProvider>
+				</Router>
+			</MuiThemeProvider>
 		</AuthProvider>
 	)
 }

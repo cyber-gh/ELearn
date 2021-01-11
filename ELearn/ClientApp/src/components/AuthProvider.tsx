@@ -29,7 +29,7 @@ export const AuthProvider = ({ children, ...props }) => {
 
     }, [])
     
-    if (authenticated === null) return <h2>ma uit daca esti logat wai pula</h2>
+    if (authenticated === null) return <div/>
 
     return (
         <AuthContext.Provider value={{loading, authenticated, user}}>

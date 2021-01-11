@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {CourseModel} from "../interfaces";
-import {getCourses, getMyCourses} from "../api";
+import {getCourses, getMyCourses, getUserClasses} from "../api";
 import {Link} from "react-router-dom";
 import CourseCard from "../components/CourseCard";
+import {AuthContext, AuthProvider} from "../components/AuthProvider";
 
 export interface Props {
     [key: string]: any
@@ -10,9 +11,11 @@ export interface Props {
 
 const UserCoursesView = (props: Props) => {
     const [data, setData] = useState <CourseModel[]> ([]);
+    const {user} = useContext(AuthContext)
+    console.log(user);
 
     const getData = async () => {
-        let courses = await getMyCourses();
+        let courses = await getUserClasses();
         setData(courses);
     }
     

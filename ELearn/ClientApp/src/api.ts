@@ -1,8 +1,23 @@
-import {AddCourseModel, Category, CourseDetailsModel, CourseModel, LessonModel} from "./interfaces";
+import {AddCourseModel, Category, CourseDetailsModel, CourseModel, LessonModel, ReviewModel} from "./interfaces";
 import {useEffect} from "react";
 import authService from "./components/api-authorization/AuthorizeService";
 
 type Method = "GET" | "POST" | "DELETE" | "PUT";
+
+const getUserClasses = async (): Promise<CourseModel[]> => {
+    const url = "/api/courselist/my-classes";
+    return (await makeNetworkCall(url, [], "GET", null)) as CourseModel[];
+}
+
+const getReviews = async (id: string): Promise<ReviewModel[]> => {
+    const url = "/api/coursedetails/reviews";
+    return (await makeNetworkCall(url, [["id", id]], "GET", null)) as ReviewModel[];
+}
+
+const postReview = async (values: object): Promise<object> => {
+    const url = "/api/coursedetails/reviews";
+    return (await makeNetworkCall(url, [], "POST", values)) as object;
+}
 
 const searchCourse = async (key: string): Promise<CourseModel[]> => {
     const url = "/api/courselist/search";
@@ -102,4 +117,4 @@ const makeNetworkCall = async (url: string, params: [string, string][] = [], met
 
 
 
-export {getCategories, postCourse, assignCategory, addLesson, getLessons, removeLesson, getCoursesByCategory, getCourseById, updateLesson, getCourses, getMyCourses, searchCourse};
+export {getUserClasses, getCategories, postCourse, assignCategory, addLesson, postReview, getLessons, removeLesson, getCoursesByCategory, getCourseById, updateLesson, getCourses, getMyCourses, searchCourse, getReviews};

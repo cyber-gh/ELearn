@@ -107,6 +107,7 @@ section.course {
             top: 0;
             border-bottom: 1px solid $color_4;
             background-color: $background_color;
+            z-index: 10;
             .content {
                 margin: 0 auto;
                 max-width: $small-screen;
@@ -147,6 +148,10 @@ section.course {
         .reviews {
             max-width: $large-screen;
             margin: 0 auto;
+            .no-review {
+                text-align: center;
+                margin: 50px auto;
+            }
             .element {
                 border-radius: 8px;
                 display: flex;
@@ -156,6 +161,8 @@ section.course {
                 background-color: $background_color;
                 padding: 15px;
                 .user-data {
+                    flex-shrink: 1;
+                    margin-right: 40px;
                     min-width: 30%;
                     display: flex;
                     p.username {
@@ -165,6 +172,8 @@ section.course {
                     }
                 }
                 .info {
+                    flex-basis: 70%;
+                    flex-shrink: 1.5;
                     .top {
                         display: flex;
                         justify-content: space-between;
@@ -214,6 +223,58 @@ section.course {
                         }
                     }
                 }
+            }
+        }
+        .quiz {
+            padding: 15px;
+            max-width: $large-screen;
+            margin: 0 auto;
+            font-size: 25px;
+            .question {
+                display: flex;
+                flex-direction: column;
+                padding: 10px 0;
+                > p {
+                    font-weight: 600;
+                }
+                .answer {
+                    border-radius: 5px;
+                    padding-left: 15px;
+                    display: flex;
+                    align-items: center;
+                }
+                .correct {
+                    background-color: #a9ffd5;
+                }
+                .wrong {
+                    background-color: #ffa9a9;
+                }
+            }
+            .submit {
+                margin-top: 15px;
+                background-color: $color_1;
+                border: 1px solid $color_1;
+                cursor: pointer;
+                padding: 5px 10px;
+                color: white;
+                border-radius: 5px;
+                font-size: 20px;
+                font-weight: 600;
+                transition: 0.2s background-color, 0.1s box-shadow, 0.2s color;
+                outline: none;
+                &:hover {
+                    background-color: white;
+                    color: $color_1;
+                }
+                &:active {
+                    box-shadow: 0 0 5px 0 $color_1;
+                }
+            }
+            @media (max-width: $tablet) {
+                font-size: 21px;
+            }
+            @media (max-width: $mobile) {
+                font-size: 18px;
             }
         }
     }

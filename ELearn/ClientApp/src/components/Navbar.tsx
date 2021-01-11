@@ -1,7 +1,8 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react'
+import history from "../history";
 import {More, NotificationsNone as Bell, Search} from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {LoginMenu} from "./api-authorization/LoginMenu";
 import {LoginMenuV2} from "./api-authorization/LoginMenuTs";
 import {AuthContext} from "./AuthProvider";
@@ -22,11 +23,9 @@ export default (props: Props) => {
     const [search, setSearch] = useState("");
     const [mobileMenu, setMobileMenu] = useState(false);
     const [menuState, setMenuState] = useState(false);
-    console.log(context);
-    console.log(context === 1);
-    
+    const location = useLocation();
+    console.log(location);
     const handleBrowseClick = () => {
-        console.log("lol wat?");
         if (context != 1)
             setContext(1);
         else
@@ -49,7 +48,12 @@ export default (props: Props) => {
     
     const close = () => {
         setContext(0);
+        // setMenuState(false);
     }
+    
+    useEffect(() => {
+        setMenuState(false);
+    }, [location.pathname])
 
     useEffect(() => {
         const handleResize = () => {
@@ -66,6 +70,9 @@ export default (props: Props) => {
             if (!e.target.classList.contains("exclude-1")) {
                 close();
             }
+        }
+        const mobileClick = (e) => {
+            console.log(e.target);
         }
         handleResize();
         window.addEventListener("resize", handleResize);

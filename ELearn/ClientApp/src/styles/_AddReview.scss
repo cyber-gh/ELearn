@@ -1,0 +1,82 @@
+.add-review {
+    display: flex;
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 8px;
+        font-size: 23px;
+        margin: 15px;
+        background-color: $background_color;
+        padding: 15px;
+        input, textarea, select {
+            display: block;
+            border: 1px solid $color_4;
+            padding: 5px;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            transition: border 0.1s;
+            
+            &:focus {
+                border: 1px solid $color_1;
+            }
+        }
+        p {
+            font-size: 0.7em;
+            margin: 15px 0 0 0;
+        }
+        select {
+            margin-top: 5px;
+            cursor: pointer;
+        }
+        > * {
+            width: 100%;
+            margin: 10px 0;
+        }
+        textarea {
+            width: 100% !important;
+            box-sizing: border-box;
+            max-height: 300px;
+            min-height: 120px;
+        }
+        @media (max-width: $tablet) {
+            font-size: 19px;
+        }
+    }
+    button, input[type="submit"] {
+        background-color: $color_1;
+        border: 1px solid $color_1;
+        cursor: pointer;
+        padding: 5px 10px;
+        color: white;
+        border-radius: 5px;
+        font-size: 20px;
+        font-weight: 600;
+        transition: 0.2s background-color, 0.1s box-shadow, 0.2s color;
+        outline: none;
+        &:hover {
+            background-color: white;
+            color: $color_1;
+        }
+        &:active {
+            box-shadow: 0 0 5px 0 $color_1;
+        }
+    }
+    button {
+        margin: 15px 5% 10px auto;
+    }
+    input[type="submit"] {
+        width: 300px;
+        margin: 10px auto;
+        background-color: white;
+        color: $color_1;
+        border: 1px solid $color_1;
+        &:hover {
+            background-color: $color_1;
+            color: white
+        }
+        @media (max-width: $tablet) {
+            width: 100%;
+        }
+    }
+}
